@@ -1,0 +1,188 @@
+INSERT INTO sgdp."SGDP_PROCESOS"(
+            "A_NOMBRE_PROCESO", 
+			"A_DESCRIPCION_PROCESO", 
+			"ID_MACRO_PROCESO", 
+            "B_VIGENTE", 
+			"B_CONFIDENCIAL" ,
+			"N_DIAS_HABILES_MAX_DURACION", 
+			"X_BPMN",
+			"ID_UNIDAD",
+			"A_CODIGO_PROCESO")
+			 VALUES ('Notificaciones billetes falsos - encargado',
+			 'Notificaciones billetes falsos - encargado', 
+			 4, 
+			 TRUE, 
+			 TRUE,
+			 2, 
+			 '<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.8.1">
+  <bpmn:collaboration id="Collaboration_1yh15mm">
+    <bpmn:extensionElements>
+      <camunda:properties>
+        <camunda:property name="Fea" value="No" />
+        <camunda:property name="Etapa" value="3" />
+      </camunda:properties>
+    </bpmn:extensionElements>
+    <bpmn:participant id="Participant_0rfpdyf" name="Notificaciones de billetes falsos - encargado" processRef="Process_1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:laneSet>
+      <bpmn:lane id="Lane_0y4gw9x" name="Administrador de documentos">
+        <bpmn:flowNodeRef>Task_1q6gqsq</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0h3i10j</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:sequenceFlow id="SequenceFlow_0lotik0" sourceRef="StartEvent_0ua8mo6" targetRef="Task_1q6gqsq" />
+    <bpmn:task id="Task_1q6gqsq" name="Adjuntar documento y/o antecedentes">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="2" />
+          <camunda:property name="etapa" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0lotik0</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_14y4mbk</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_10rpe6l">
+        <bpmn:targetRef>DataObjectReference_0zl85vu</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_0h3i10j">
+      <bpmn:incoming>SequenceFlow_14y4mbk</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_0ua8mo6">
+      <bpmn:outgoing>SequenceFlow_0lotik0</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_14y4mbk" sourceRef="Task_1q6gqsq" targetRef="EndEvent_0h3i10j" />
+    <bpmn:dataObjectReference id="DataObjectReference_0zl85vu" name="Notificación por billetes falsos - encargado" dataObjectRef="DataObject_17ksd2o">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="expediente" value="si" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+    </bpmn:dataObjectReference>
+    <bpmn:dataObject id="DataObject_17ksd2o" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1yh15mm">
+      <bpmndi:BPMNShape id="Participant_0rfpdyf_di" bpmnElement="Participant_0rfpdyf">
+        <dc:Bounds x="-1430" y="-1138" width="454" height="331" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0y4gw9x_di" bpmnElement="Lane_0y4gw9x">
+        <dc:Bounds x="-1400" y="-1138" width="424" height="331" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1q6gqsq_di" bpmnElement="Task_1q6gqsq">
+        <dc:Bounds x="-1248" y="-998" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_0ua8mo6_di" bpmnElement="StartEvent_0ua8mo6">
+        <dc:Bounds x="-1338" y="-972" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-1500" y="-932" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0zl85vu_di" bpmnElement="DataObjectReference_0zl85vu">
+        <dc:Bounds x="-1187" y="-1097" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-1139" y="-1116" width="75" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0lotik0_di" bpmnElement="SequenceFlow_0lotik0">
+        <di:waypoint xsi:type="dc:Point" x="-1302" y="-955" />
+        <di:waypoint xsi:type="dc:Point" x="-1248" y="-955" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-1320" y="-976" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_10rpe6l_di" bpmnElement="DataOutputAssociation_10rpe6l">
+        <di:waypoint xsi:type="dc:Point" x="-1198" y="-1000.1697368421053" />
+        <di:waypoint xsi:type="dc:Point" x="-1169" y="-1045" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0h3i10j_di" bpmnElement="EndEvent_0h3i10j">
+        <dc:Bounds x="-1104" y="-976" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-1131" y="-936" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_14y4mbk_di" bpmnElement="SequenceFlow_14y4mbk">
+        <di:waypoint xsi:type="dc:Point" x="-1148" y="-958" />
+        <di:waypoint xsi:type="dc:Point" x="-1104" y="-958" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-1126" y="-979" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
+', 
+			 6,
+			 '26 15') 
+			 RETURNING "ID_PROCESO"; 
+
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP"	)
+    	VALUES (
+			'Adjuntar documento yo antecedentes',
+			'Task_1q6gqsq',  
+			NULL, 
+			539, 
+			2, 
+            1,
+			TRUE, 
+			FALSE, 
+			1, 
+            TRUE, 
+			TRUE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+
+
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Notificación por billetes falsos  encargado'
+				,TRUE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+
+
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( '') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( '') RETURNING "ID_RESPONSABILIDAD";
+
+
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							10040
+							, 2645
+							, 1);
+
+

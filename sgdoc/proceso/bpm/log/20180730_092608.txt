@@ -1,0 +1,4383 @@
+INSERT INTO sgdp."SGDP_PROCESOS"(
+            "A_NOMBRE_PROCESO", 
+			"A_DESCRIPCION_PROCESO", 
+			"ID_MACRO_PROCESO", 
+            "B_VIGENTE", 
+			"B_CONFIDENCIAL" ,
+			"N_DIAS_HABILES_MAX_DURACION", 
+			"X_BPMN",
+			"ID_UNIDAD",
+			"A_CODIGO_PROCESO")
+			 VALUES ('Ejecución de la fiscalización',
+			 'Ejecución de la fiscalización', 
+			 14, 
+			 TRUE, 
+			 TRUE,
+			 20, 
+			 '<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.8.1">
+  <bpmn:collaboration id="Collaboration_0qb2e2e">
+    <bpmn:extensionElements>
+      <camunda:properties>
+        <camunda:property name="plazo" value="1" />
+        <camunda:property name="etapa" value="4" />
+        <camunda:property name="esperar" value="sí" />
+      </camunda:properties>
+    </bpmn:extensionElements>
+    <bpmn:participant id="Participant_1cedvp3" name="Ejecución de la fiscalización" processRef="Process_1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:laneSet>
+      <bpmn:lane id="Lane_1rl7hmc" name="Administrador de documentos">
+        <bpmn:flowNodeRef>Task_19q42a2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1oafkon</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0g4g70i</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0vthaaq</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_1dfnibc</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0lsoim7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1aot397</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0nwaenk</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0qhb0aw</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_16xyxgx</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1q9bwt2" name="Analista de fiscalización - Profesional DFIS">
+        <bpmn:flowNodeRef>Task_16tiofy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0sbu794</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_11fvp8f</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1d7d49m</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0nmqkxc</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0ua3i3v</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1tcynro</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_1yg6zfj</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_14av7np" name="Analista de fiscalización - Coordinador DFIS">
+        <bpmn:flowNodeRef>Task_0p54q6t</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_178f82o</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1sc4evk</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0jr6gmx</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0lynjx6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1cwtmbt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0wxzqms</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0anqc14</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0v7cj3a</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0rdsh8f" name="Responsable de fiscalización - Jefe DFIS">
+        <bpmn:flowNodeRef>Task_1bl4gm5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_13lkjmb</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0kj3jpp</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_04m8lk9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1cd2bfk</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_1cv5euo</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0l0zizp</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_11e0cdi</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_135z9vw" name="Encargado de despacho">
+        <bpmn:flowNodeRef>Task_0pryisn</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1g2ct1u</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_0dqwy5s" name="Creador de expediente">
+        <bpmn:flowNodeRef>Task_0y4h9p6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_19ztvnt" name="Visador jurídico - Coordinador DJUR">
+        <bpmn:flowNodeRef>Task_1ow0ptm</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0wrv0ax</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_10qxjde</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0v7jn5t</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_005xtfk" name="Visador jurídico - Jefe DJUR">
+        <bpmn:flowNodeRef>Task_1uaf35p</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0eokvwy</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_02nzd49" name="Aprobador final">
+        <bpmn:flowNodeRef>Task_109f3vq</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1slly3e</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0r4iaon</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_11hpyf7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0cjemwu</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0f9u5pp</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_18b4obn" name="Tramitador de firma">
+        <bpmn:flowNodeRef>Task_0452ylp</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0qknrtt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_056f5ib</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0y3wpoj</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_11y78jy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_1ykoyw9</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1fbzppx" name="Visador jurídico - Profesional DJUR">
+        <bpmn:flowNodeRef>Task_06cdc8y</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0fbx7qq</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:sequenceFlow id="SequenceFlow_1pv21v9" sourceRef="Task_16tiofy" targetRef="Task_0p54q6t" />
+    <bpmn:sequenceFlow id="SequenceFlow_15ij43o" sourceRef="ExclusiveGateway_0kj3jpp" targetRef="Task_0p54q6t" />
+    <bpmn:sequenceFlow id="SequenceFlow_12rh1zf" sourceRef="Task_0p54q6t" targetRef="Task_1bl4gm5" />
+    <bpmn:sequenceFlow id="SequenceFlow_0vrvd8u" sourceRef="ExclusiveGateway_0cjemwu" targetRef="Task_13lkjmb" />
+    <bpmn:sequenceFlow id="SequenceFlow_0gq47ul" sourceRef="ExclusiveGateway_0cjemwu" targetRef="Task_19q42a2" />
+    <bpmn:sequenceFlow id="SequenceFlow_19y1zer" sourceRef="Task_19q42a2" targetRef="Task_0pryisn" />
+    <bpmn:task id="Task_0pryisn" name="Adjuntar documento de despacho">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="7" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_19y1zer</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0cyz5kz</bpmn:outgoing>
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_00ntiqh">
+        <bpmn:targetRef>DataObjectReference_0eih03h</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_0eih03h" name="Documento de despacho" dataObjectRef="DataObject_0bs9tck" />
+    <bpmn:dataObject id="DataObject_0bs9tck" />
+    <bpmn:task id="Task_16tiofy" name="Elaborar propuesta de oficio con resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1co697b</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1pv21v9</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1okma8v">
+        <bpmn:targetRef>DataObjectReference_1yj97ix</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_1uv28x6" name="Oficio con resultados de la fiscalización" dataObjectRef="DataObject_0m43iwr" />
+    <bpmn:dataObject id="DataObject_0m43iwr" />
+    <bpmn:task id="Task_0p54q6t" name="Revisar propuesta de oficio con resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1pv21v9</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_15ij43o</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_12rh1zf</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0z4bfzh">
+        <bpmn:targetRef>DataObjectReference_1uv28x6</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_1yj97ix" name="Oficio con resultados de la fiscalización" dataObjectRef="DataObject_1fyrsny" />
+    <bpmn:dataObject id="DataObject_1fyrsny" />
+    <bpmn:dataObjectReference id="DataObjectReference_1soqwix" name="Oficio con resultados de la fiscalización" dataObjectRef="DataObject_1kjfbm9" />
+    <bpmn:dataObject id="DataObject_1kjfbm9" />
+    <bpmn:task id="Task_1bl4gm5" name="Revisar y visar propuesta de oficio con resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_12rh1zf</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_059qmag</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_13nh21u">
+        <bpmn:targetRef>DataObjectReference_1soqwix</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:task id="Task_13lkjmb" name="Revisar observaciones realizadas por Superintendenta (e) a oficio con resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0vrvd8u</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zufiyj</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0kj3jpp">
+      <bpmn:incoming>SequenceFlow_0zufiyj</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_15ij43o</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1iy9wd4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_04m8lk9" name="Aprobar y visar oficio con resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="3" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1iy9wd4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0vtasp9</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1ixmbx4">
+        <bpmn:targetRef>DataObjectReference_0imtlf8</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_0imtlf8" name="Oficio con resultados de la fiscalización" dataObjectRef="DataObject_0he0yj2" />
+    <bpmn:dataObject id="DataObject_0he0yj2" />
+    <bpmn:sequenceFlow id="SequenceFlow_0zufiyj" sourceRef="Task_13lkjmb" targetRef="ExclusiveGateway_0kj3jpp" />
+    <bpmn:sequenceFlow id="SequenceFlow_1iy9wd4" sourceRef="ExclusiveGateway_0kj3jpp" targetRef="Task_04m8lk9" />
+    <bpmn:sequenceFlow id="SequenceFlow_0cyz5kz" sourceRef="Task_0pryisn" targetRef="Task_0sbu794" />
+    <bpmn:task id="Task_0sbu794" name="Analizar solicitud de espera de respuesta (obligatoria u opcional) a oficina de partes ">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="3" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0cyz5kz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0985zwv</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_19q42a2" name="Asignar número y fecha, y adjuntar documento">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="6" />
+          <camunda:property name="num" value="si" />
+          <camunda:property name="distribuir" value="si" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0gq47ul</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_19y1zer</bpmn:outgoing>
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1mnhx8n">
+        <bpmn:targetRef>DataObjectReference_0z8j34i</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_0z8j34i" name="Oficio con resultados de la fiscalización" dataObjectRef="DataObject_1a1c89v">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="expediente" value="sí" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+    </bpmn:dataObjectReference>
+    <bpmn:dataObject id="DataObject_1a1c89v" />
+    <bpmn:sequenceFlow id="SequenceFlow_0985zwv" sourceRef="Task_0sbu794" targetRef="ExclusiveGateway_0ua3i3v" />
+    <bpmn:sequenceFlow id="SequenceFlow_1biv2xc" sourceRef="ExclusiveGateway_0ua3i3v" targetRef="EndEvent_1tcynro" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ag08ww" sourceRef="ExclusiveGateway_0ua3i3v" targetRef="Task_1aot397" />
+    <bpmn:sequenceFlow id="SequenceFlow_18oyp2v" sourceRef="ExclusiveGateway_0ua3i3v" targetRef="Task_0lsoim7" />
+    <bpmn:task id="Task_178f82o" name="Analizar respuesta de sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="3" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_08lsl5c</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0pldv4v</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_08lsl5c" sourceRef="Task_16xyxgx" targetRef="Task_178f82o" />
+    <bpmn:task id="Task_11fvp8f" name="Analizar respuesta de sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="3" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0pldv4v</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_11l3uhw</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_0pldv4v" sourceRef="Task_178f82o" targetRef="Task_11fvp8f" />
+    <bpmn:sequenceFlow id="SequenceFlow_11l3uhw" sourceRef="Task_11fvp8f" targetRef="Task_1sc4evk" />
+    <bpmn:task id="Task_1sc4evk" name="Definir acción sobre respuesta de sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="3" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_11l3uhw</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ucvgfz</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0jr6gmx">
+      <bpmn:incoming>SequenceFlow_1ucvgfz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_014ol2z</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1tiffgn</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_0lynjx6">
+      <bpmn:incoming>SequenceFlow_014ol2z</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1ucvgfz" sourceRef="Task_1sc4evk" targetRef="ExclusiveGateway_0jr6gmx" />
+    <bpmn:sequenceFlow id="SequenceFlow_014ol2z" sourceRef="ExclusiveGateway_0jr6gmx" targetRef="EndEvent_0lynjx6" />
+    <bpmn:task id="Task_1oafkon" name="Asignar número y fecha, y adjuntar documento">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="6" />
+          <camunda:property name="num" value="si" />
+          <camunda:property name="distribuir" value="si" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_062bjsc</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1z0wdxb</bpmn:outgoing>
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0iee2rd">
+        <bpmn:targetRef>DataObjectReference_1jv7txm</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_1jv7txm" name="Oficio con aclaración de resultados de la fiscalización" dataObjectRef="DataObject_0qbhryc">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="expediente" value="sí" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+    </bpmn:dataObjectReference>
+    <bpmn:dataObject id="DataObject_0qbhryc" />
+    <bpmn:task id="Task_1cd2bfk" name="Revisar observaciones realizadas por Superintendenta (e) a oficio con aclaración de resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_171crg5</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1idc8z1</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1cv5euo">
+      <bpmn:incoming>SequenceFlow_1idc8z1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_06n0tpi</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_047yl06</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_0l0zizp" name="Aprobar y visar oficio con aclaración de resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="3" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_047yl06</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1dh67t3</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0fz4u7x">
+        <bpmn:targetRef>DataObjectReference_0eaggz3</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:task id="Task_1g2ct1u" name="Adjuntar documento de despacho">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="7" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1z0wdxb</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1fiqo3r</bpmn:outgoing>
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_08lskjh">
+        <bpmn:targetRef>DataObjectReference_0aqfoqz</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_0aqfoqz" name="Documento de despacho" dataObjectRef="DataObject_1wdqyu5" />
+    <bpmn:dataObject id="DataObject_1wdqyu5" />
+    <bpmn:dataObjectReference id="DataObjectReference_0eaggz3" name="Oficio con aclaración de  resultados de la fiscalización" dataObjectRef="DataObject_1qiiqbf" />
+    <bpmn:dataObject id="DataObject_1qiiqbf" />
+    <bpmn:task id="Task_1d7d49m" name="Elaborar propuesta de oficio con aclaración de resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1tiffgn</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1jusrz0</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_19qb7v7</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_12440yn">
+        <bpmn:targetRef>DataObjectReference_0bt2dkn</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_0o2l51x" name="Oficio con aclaración de resultados de la fiscalización" dataObjectRef="DataObject_1550zuh" />
+    <bpmn:dataObject id="DataObject_1550zuh" />
+    <bpmn:task id="Task_1cwtmbt" name="Revisar propuesta de oficio con aclaración de resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_06n0tpi</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_19qb7v7</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0a1eqdy</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1jgqv1v">
+        <bpmn:targetRef>DataObjectReference_0o2l51x</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_1sg3wa2" name="Oficio con aclaración de resultados de la fiscalización" dataObjectRef="DataObject_175msgz" />
+    <bpmn:dataObject id="DataObject_175msgz" />
+    <bpmn:task id="Task_11e0cdi" name="Revisar y visar propuesta de oficio con aclaración de resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0a1eqdy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1k1zulm</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1kcaine">
+        <bpmn:targetRef>DataObjectReference_1sg3wa2</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_062bjsc" sourceRef="ExclusiveGateway_0f9u5pp" targetRef="Task_1oafkon" />
+    <bpmn:sequenceFlow id="SequenceFlow_1z0wdxb" sourceRef="Task_1oafkon" targetRef="Task_1g2ct1u" />
+    <bpmn:sequenceFlow id="SequenceFlow_171crg5" sourceRef="ExclusiveGateway_0f9u5pp" targetRef="Task_1cd2bfk" />
+    <bpmn:sequenceFlow id="SequenceFlow_1idc8z1" sourceRef="Task_1cd2bfk" targetRef="ExclusiveGateway_1cv5euo" />
+    <bpmn:sequenceFlow id="SequenceFlow_06n0tpi" sourceRef="ExclusiveGateway_1cv5euo" targetRef="Task_1cwtmbt" />
+    <bpmn:sequenceFlow id="SequenceFlow_047yl06" sourceRef="ExclusiveGateway_1cv5euo" targetRef="Task_0l0zizp" />
+    <bpmn:sequenceFlow id="SequenceFlow_19qb7v7" sourceRef="Task_1d7d49m" targetRef="Task_1cwtmbt" />
+    <bpmn:sequenceFlow id="SequenceFlow_0a1eqdy" sourceRef="Task_1cwtmbt" targetRef="Task_11e0cdi" />
+    <bpmn:sequenceFlow id="SequenceFlow_1e6jf0a" sourceRef="Task_0g4g70i" targetRef="Task_0vthaaq" />
+    <bpmn:sequenceFlow id="SequenceFlow_0w973g2" sourceRef="Task_0vthaaq" targetRef="Task_0v7cj3a" />
+    <bpmn:sequenceFlow id="SequenceFlow_0dhs7nc" sourceRef="Task_0v7cj3a" targetRef="Task_0nmqkxc" />
+    <bpmn:sequenceFlow id="SequenceFlow_0hb7rtg" sourceRef="Task_0anqc14" targetRef="EndEvent_0wxzqms" />
+    <bpmn:dataObjectReference id="DataObjectReference_0bt2dkn" name="Oficio con aclaración de resultados de la fiscalización" dataObjectRef="DataObject_1698sl5" />
+    <bpmn:dataObject id="DataObject_1698sl5" />
+    <bpmn:sequenceFlow id="SequenceFlow_1tiffgn" sourceRef="ExclusiveGateway_0jr6gmx" targetRef="Task_1d7d49m" />
+    <bpmn:task id="Task_0g4g70i" name="Esperar respuesta de sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="7" />
+          <camunda:property name="plazo" value="5" />
+          <camunda:property name="esperar" value="sí" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1fiqo3r</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1e6jf0a</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_1fiqo3r" sourceRef="Task_1g2ct1u" targetRef="Task_0g4g70i" />
+    <bpmn:task id="Task_0vthaaq" name="Adjuntar respuesta de la sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="1" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1e6jf0a</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0w973g2</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0clc5d6">
+        <bpmn:targetRef>DataObjectReference_0ypeiie</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_0ypeiie" name="Respuesta de sociedad operadora" dataObjectRef="DataObject_1c5z8lp" />
+    <bpmn:dataObject id="DataObject_1c5z8lp" />
+    <bpmn:endEvent id="EndEvent_0wxzqms">
+      <bpmn:incoming>SequenceFlow_0hb7rtg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Task_0nmqkxc" name="Analizar respuesta de sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="3" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0dhs7nc</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0n5mf08</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_0anqc14" name="Definir acción sobre respuesta de sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="3" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0y67308</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0hb7rtg</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0ua3i3v">
+      <bpmn:incoming>SequenceFlow_0985zwv</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1biv2xc</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0ag08ww</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_18oyp2v</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_1tcynro">
+      <bpmn:incoming>SequenceFlow_1biv2xc</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0n5mf08" sourceRef="Task_0nmqkxc" targetRef="ExclusiveGateway_1yg6zfj" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1yg6zfj">
+      <bpmn:incoming>SequenceFlow_0n5mf08</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0y67308</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1jusrz0</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0y67308" sourceRef="ExclusiveGateway_1yg6zfj" targetRef="Task_0anqc14" />
+    <bpmn:sequenceFlow id="SequenceFlow_1jusrz0" sourceRef="ExclusiveGateway_1yg6zfj" targetRef="Task_1d7d49m" />
+    <bpmn:task id="Task_0v7cj3a" name="Analizar respuesta de sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="3" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0w973g2</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0dhs7nc</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_0y4h9p6" name="Crear expediente">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0kmja76</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1mvsyp3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0kmja76</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0kmja76" sourceRef="StartEvent_1" targetRef="Task_0y4h9p6" />
+    <bpmn:sequenceFlow id="SequenceFlow_0uu1x4g" sourceRef="ExclusiveGateway_1dfnibc" targetRef="Task_16xyxgx" />
+    <bpmn:sequenceFlow id="SequenceFlow_1co697b" sourceRef="ExclusiveGateway_1dfnibc" targetRef="Task_16tiofy" />
+    <bpmn:sequenceFlow id="SequenceFlow_1mvsyp3" sourceRef="Task_0y4h9p6" targetRef="ExclusiveGateway_1dfnibc" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1dfnibc">
+      <bpmn:incoming>SequenceFlow_1mvsyp3</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0uu1x4g</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1co697b</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_0lsoim7" name="Esperar respuesta obligatoria de sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="7" />
+          <camunda:property name="plazo" value="10" />
+          <camunda:property name="esperar" value="sí" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_18oyp2v</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1mrr251</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_1aot397" name="Esperar respuesta opcional de sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="7" />
+          <camunda:property name="plazo" value="60" />
+          <camunda:property name="esperar" value="sí" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0ag08ww</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1qpfodo</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0nwaenk">
+      <bpmn:incoming>SequenceFlow_1qpfodo</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0v1l1t5</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_07pwenu</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_0qhb0aw">
+      <bpmn:incoming>SequenceFlow_0v1l1t5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Task_16xyxgx" name="Adjuntar respuesta de la sociedad operadora">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="1" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_07pwenu</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1mrr251</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0uu1x4g</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_08lsl5c</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0k9btqb">
+        <bpmn:targetRef>DataObjectReference_0z9h9dk</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_0z9h9dk" name="Respuesta de sociedad operadora" dataObjectRef="DataObject_0ufnprf" />
+    <bpmn:dataObject id="DataObject_0ufnprf" />
+    <bpmn:sequenceFlow id="SequenceFlow_1mrr251" sourceRef="Task_0lsoim7" targetRef="Task_16xyxgx" />
+    <bpmn:sequenceFlow id="SequenceFlow_1qpfodo" sourceRef="Task_1aot397" targetRef="ExclusiveGateway_0nwaenk" />
+    <bpmn:sequenceFlow id="SequenceFlow_0v1l1t5" sourceRef="ExclusiveGateway_0nwaenk" targetRef="EndEvent_0qhb0aw" />
+    <bpmn:sequenceFlow id="SequenceFlow_07pwenu" sourceRef="ExclusiveGateway_0nwaenk" targetRef="Task_16xyxgx" />
+    <bpmn:task id="Task_1uaf35p" name="Revisar y visar oficio con resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="8" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0ts8ei2</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0z578o0</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0b9ywox">
+        <bpmn:targetRef>DataObjectReference_1cx3e4b</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_1cx3e4b" name="Oficio con resultados de la fiscalización" dataObjectRef="DataObject_1hcobzn" />
+    <bpmn:dataObject id="DataObject_1hcobzn" />
+    <bpmn:task id="Task_0452ylp" name="Determinar tipo de firma">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="5" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0z578o0</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0ky2oa0</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_09rh5b7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_11y78jy">
+      <bpmn:incoming>SequenceFlow_09rh5b7</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1x58cja</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0i4j8or</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_0qknrtt" name="Imprimir documento para firma manual">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="5" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0i4j8or</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1e9zayp</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_109f3vq" name="Revisar propuesta y firmar documento de forma electrónica">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="5" />
+          <camunda:property name="fea" value="si" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1x58cja</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_094jbqd</bpmn:outgoing>
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0g9gqvg">
+        <bpmn:targetRef>DataObjectReference_02hbsku</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_02hbsku" name="Oficio con resultados de la fiscalización" dataObjectRef="DataObject_0zksi9c">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="fea" value="si" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+    </bpmn:dataObjectReference>
+    <bpmn:dataObject id="DataObject_0zksi9c" />
+    <bpmn:task id="Task_1slly3e" name="Revisar propuesta y firmar documento de forma manual">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="5" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1e9zayp</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ejc1hk</bpmn:outgoing>
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0cjemwu">
+      <bpmn:incoming>SequenceFlow_0ejc1hk</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_094jbqd</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0vrvd8u</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0gq47ul</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_056f5ib" name="Determinar tipo de firma">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="5" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0wbw47t</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_04onmju</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0bm397a</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_0y3wpoj" name="Imprimir documento para firma manual">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="5" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1l1aq9v</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ksetjn</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1ykoyw9">
+      <bpmn:incoming>SequenceFlow_0bm397a</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1l1aq9v</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1myddgy</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_0r4iaon" name="Revisar propuesta y firmar documento de forma electrónica">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="5" />
+          <camunda:property name="fea" value="si" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1myddgy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1o4y4d0</bpmn:outgoing>
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_14dbkso">
+        <bpmn:targetRef>DataObjectReference_1rs6y2i</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:task id="Task_11hpyf7" name="Revisar propuesta y firmar documento de forma manual">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="5" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1ksetjn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1hc30dr</bpmn:outgoing>
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+      <bpmn:dataOutputAssociation />
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_1rs6y2i" name="Oficio con aclaración de resultados de la fiscalización" dataObjectRef="DataObject_1lflzrn">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="fea" value="si" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+    </bpmn:dataObjectReference>
+    <bpmn:dataObject id="DataObject_1lflzrn" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0f9u5pp">
+      <bpmn:incoming>SequenceFlow_1o4y4d0</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1hc30dr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_062bjsc</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_171crg5</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:dataObjectReference id="DataObjectReference_08qbesa" name="Oficio con aclaración de resultados de la fiscalización" dataObjectRef="DataObject_0eqvg0w" />
+    <bpmn:dataObject id="DataObject_0eqvg0w" />
+    <bpmn:task id="Task_0eokvwy" name="Revisar y visar oficio con aclaración de resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="8" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0e4uo13</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0wbw47t</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1byozfw">
+        <bpmn:targetRef>DataObjectReference_08qbesa</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_1dc60kc" sourceRef="Task_1ow0ptm" targetRef="ExclusiveGateway_0wrv0ax" />
+    <bpmn:sequenceFlow id="SequenceFlow_0z578o0" sourceRef="Task_1uaf35p" targetRef="Task_0452ylp" />
+    <bpmn:sequenceFlow id="SequenceFlow_09rh5b7" sourceRef="Task_0452ylp" targetRef="ExclusiveGateway_11y78jy" />
+    <bpmn:sequenceFlow id="SequenceFlow_1x58cja" sourceRef="ExclusiveGateway_11y78jy" targetRef="Task_109f3vq" />
+    <bpmn:sequenceFlow id="SequenceFlow_0i4j8or" sourceRef="ExclusiveGateway_11y78jy" targetRef="Task_0qknrtt" />
+    <bpmn:sequenceFlow id="SequenceFlow_1e9zayp" sourceRef="Task_0qknrtt" targetRef="Task_1slly3e" />
+    <bpmn:sequenceFlow id="SequenceFlow_094jbqd" sourceRef="Task_109f3vq" targetRef="ExclusiveGateway_0cjemwu" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ejc1hk" sourceRef="Task_1slly3e" targetRef="ExclusiveGateway_0cjemwu" />
+    <bpmn:sequenceFlow id="SequenceFlow_0wbw47t" sourceRef="Task_0eokvwy" targetRef="Task_056f5ib" />
+    <bpmn:sequenceFlow id="SequenceFlow_0bm397a" sourceRef="Task_056f5ib" targetRef="ExclusiveGateway_1ykoyw9" />
+    <bpmn:sequenceFlow id="SequenceFlow_1l1aq9v" sourceRef="ExclusiveGateway_1ykoyw9" targetRef="Task_0y3wpoj" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ksetjn" sourceRef="Task_0y3wpoj" targetRef="Task_11hpyf7" />
+    <bpmn:sequenceFlow id="SequenceFlow_1myddgy" sourceRef="ExclusiveGateway_1ykoyw9" targetRef="Task_0r4iaon" />
+    <bpmn:sequenceFlow id="SequenceFlow_1o4y4d0" sourceRef="Task_0r4iaon" targetRef="ExclusiveGateway_0f9u5pp" />
+    <bpmn:sequenceFlow id="SequenceFlow_1hc30dr" sourceRef="Task_11hpyf7" targetRef="ExclusiveGateway_0f9u5pp" />
+    <bpmn:sequenceFlow id="SequenceFlow_05zurvx" sourceRef="Task_10qxjde" targetRef="ExclusiveGateway_0v7jn5t" />
+    <bpmn:task id="Task_06cdc8y" name="Revisar oficio con resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="8" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_059qmag</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_02b4isk</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_180sgva">
+        <bpmn:targetRef>DataObjectReference_027f3ha</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_059qmag" sourceRef="Task_1bl4gm5" targetRef="Task_06cdc8y" />
+    <bpmn:sequenceFlow id="SequenceFlow_02b4isk" sourceRef="Task_06cdc8y" targetRef="Task_1ow0ptm" />
+    <bpmn:dataObjectReference id="DataObjectReference_027f3ha" name="Oficio con resultados de la fiscalización" dataObjectRef="DataObject_0krfghn" />
+    <bpmn:dataObject id="DataObject_0krfghn" />
+    <bpmn:task id="Task_1ow0ptm" name="Revisar oficio con resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="8" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_02b4isk</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0vtasp9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1dc60kc</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1tbvx8d">
+        <bpmn:targetRef>DataObjectReference_04ekuna</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_04ekuna" name="Oficio con resultados de la fiscalización" dataObjectRef="DataObject_1e3mjzf" />
+    <bpmn:dataObject id="DataObject_1e3mjzf" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ts8ei2" sourceRef="ExclusiveGateway_0wrv0ax" targetRef="Task_1uaf35p" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0wrv0ax">
+      <bpmn:incoming>SequenceFlow_1dc60kc</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ts8ei2</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0ky2oa0</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0ky2oa0" sourceRef="ExclusiveGateway_0wrv0ax" targetRef="Task_0452ylp" />
+    <bpmn:task id="Task_0fbx7qq" name="Revisar oficio con resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="8" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1k1zulm</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0cjw3ml</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1pubi9t">
+        <bpmn:targetRef>DataObjectReference_0spotjv</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_1k1zulm" sourceRef="Task_11e0cdi" targetRef="Task_0fbx7qq" />
+    <bpmn:sequenceFlow id="SequenceFlow_0cjw3ml" sourceRef="Task_0fbx7qq" targetRef="Task_10qxjde" />
+    <bpmn:dataObjectReference id="DataObjectReference_0spotjv" name="Oficio con aclaración de resultados de la fiscalización" dataObjectRef="DataObject_1xd8nfj" />
+    <bpmn:dataObject id="DataObject_1xd8nfj" />
+    <bpmn:task id="Task_10qxjde" name="Revisar oficio con aclaración de resultados de la fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="etapa" value="8" />
+          <camunda:property name="plazo" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0cjw3ml</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1dh67t3</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_05zurvx</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0ibqar5">
+        <bpmn:targetRef>DataObjectReference_1l3iein</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_1l3iein" name="Oficio con aclaración de resultados de la fiscalización" dataObjectRef="DataObject_0qe9gzn" />
+    <bpmn:dataObject id="DataObject_0qe9gzn" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0v7jn5t">
+      <bpmn:incoming>SequenceFlow_05zurvx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0e4uo13</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_04onmju</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0e4uo13" sourceRef="ExclusiveGateway_0v7jn5t" targetRef="Task_0eokvwy" />
+    <bpmn:sequenceFlow id="SequenceFlow_04onmju" sourceRef="ExclusiveGateway_0v7jn5t" targetRef="Task_056f5ib" />
+    <bpmn:sequenceFlow id="SequenceFlow_0vtasp9" sourceRef="Task_04m8lk9" targetRef="Task_1ow0ptm" />
+    <bpmn:sequenceFlow id="SequenceFlow_1dh67t3" sourceRef="Task_0l0zizp" targetRef="Task_10qxjde" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0qb2e2e">
+      <bpmndi:BPMNShape id="Participant_1cedvp3_di" bpmnElement="Participant_1cedvp3">
+        <dc:Bounds x="1047" y="-347" width="4214" height="1769" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="1147" y="-299" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1120" y="-263" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1q9bwt2_di" bpmnElement="Lane_1q9bwt2">
+        <dc:Bounds x="1077" y="209" width="4184" height="158" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_14av7np_di" bpmnElement="Lane_14av7np">
+        <dc:Bounds x="1077" y="367" width="4184" height="155" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0y4h9p6_di" bpmnElement="Task_0y4h9p6">
+        <dc:Bounds x="1223" y="-321" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0kmja76_di" bpmnElement="SequenceFlow_0kmja76">
+        <di:waypoint xsi:type="dc:Point" x="1183" y="-281" />
+        <di:waypoint xsi:type="dc:Point" x="1223" y="-281" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1158" y="-302" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_0rdsh8f_di" bpmnElement="Lane_0rdsh8f">
+        <dc:Bounds x="1077" y="522" width="4184" height="152" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_16tiofy_di" bpmnElement="Task_16tiofy">
+        <dc:Bounds x="1223" y="246" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0p54q6t_di" bpmnElement="Task_0p54q6t">
+        <dc:Bounds x="1223" y="385" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1pv21v9_di" bpmnElement="SequenceFlow_1pv21v9">
+        <di:waypoint xsi:type="dc:Point" x="1273" y="326" />
+        <di:waypoint xsi:type="dc:Point" x="1273" y="385" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1243" y="349.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_1bl4gm5_di" bpmnElement="Task_1bl4gm5">
+        <dc:Bounds x="1223" y="546" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_12rh1zf_di" bpmnElement="SequenceFlow_12rh1zf">
+        <di:waypoint xsi:type="dc:Point" x="1273" y="465" />
+        <di:waypoint xsi:type="dc:Point" x="1273" y="546" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1243" y="499.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_19ztvnt_di" bpmnElement="Lane_19ztvnt">
+        <dc:Bounds x="1077" y="794" width="4184" height="163" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1ow0ptm_di" bpmnElement="Task_1ow0ptm">
+        <dc:Bounds x="1223" y="804" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_005xtfk_di" bpmnElement="Lane_005xtfk">
+        <dc:Bounds x="1077" y="957" width="4184" height="132" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1uaf35p_di" bpmnElement="Task_1uaf35p">
+        <dc:Bounds x="1223" y="981" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_02nzd49_di" bpmnElement="Lane_02nzd49">
+        <dc:Bounds x="1077" y="1261" width="4184" height="161" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1yj97ix_di" bpmnElement="DataObjectReference_1yj97ix">
+        <dc:Bounds x="1147" y="261" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1127" y="315" width="77" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1okma8v_di" bpmnElement="DataOutputAssociation_1okma8v">
+        <di:waypoint xsi:type="dc:Point" x="1223" y="287" />
+        <di:waypoint xsi:type="dc:Point" x="1183" y="287" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_1uv28x6_di" bpmnElement="DataObjectReference_1uv28x6">
+        <dc:Bounds x="1147" y="400" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1127" y="454" width="77" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0z4bfzh_di" bpmnElement="DataOutputAssociation_0z4bfzh">
+        <di:waypoint xsi:type="dc:Point" x="1223" y="427" />
+        <di:waypoint xsi:type="dc:Point" x="1183" y="429" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_1soqwix_di" bpmnElement="DataObjectReference_1soqwix">
+        <dc:Bounds x="1147" y="565" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1127" y="619" width="77" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_13nh21u_di" bpmnElement="DataOutputAssociation_13nh21u">
+        <di:waypoint xsi:type="dc:Point" x="1223" y="588" />
+        <di:waypoint xsi:type="dc:Point" x="1183" y="588" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_04ekuna_di" bpmnElement="DataObjectReference_04ekuna">
+        <dc:Bounds x="1147" y="819" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1127" y="873" width="77" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1cx3e4b_di" bpmnElement="DataObjectReference_1cx3e4b">
+        <dc:Bounds x="1147" y="996" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1127" y="1050" width="77" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_02hbsku_di" bpmnElement="DataObjectReference_02hbsku">
+        <dc:Bounds x="1275" y="1312" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1255" y="1366" width="77" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0b9ywox_di" bpmnElement="DataOutputAssociation_0b9ywox">
+        <di:waypoint xsi:type="dc:Point" x="1223" y="1021" />
+        <di:waypoint xsi:type="dc:Point" x="1183" y="1022" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1tbvx8d_di" bpmnElement="DataOutputAssociation_1tbvx8d">
+        <di:waypoint xsi:type="dc:Point" x="1223" y="847" />
+        <di:waypoint xsi:type="dc:Point" x="1183" y="849" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_1rl7hmc_di" bpmnElement="Lane_1rl7hmc">
+        <dc:Bounds x="1077" y="-227" width="4184" height="282" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_18b4obn_di" bpmnElement="Lane_18b4obn">
+        <dc:Bounds x="1077" y="1089" width="4184" height="172" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0452ylp_di" bpmnElement="Task_0452ylp">
+        <dc:Bounds x="1223" y="1125" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0qknrtt_di" bpmnElement="Task_0qknrtt">
+        <dc:Bounds x="1468" y="1125" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_11y78jy_di" bpmnElement="ExclusiveGateway_11y78jy" isMarkerVisible="true">
+        <dc:Bounds x="1375" y="1140" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1175" y="1194" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_109f3vq_di" bpmnElement="Task_109f3vq">
+        <dc:Bounds x="1350" y="1297" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1slly3e_di" bpmnElement="Task_1slly3e">
+        <dc:Bounds x="1468" y="1297" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1x58cja_di" bpmnElement="SequenceFlow_1x58cja">
+        <di:waypoint xsi:type="dc:Point" x="1400" y="1190" />
+        <di:waypoint xsi:type="dc:Point" x="1400" y="1297" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1370" y="1238" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0cjemwu_di" bpmnElement="ExclusiveGateway_0cjemwu" isMarkerVisible="true">
+        <dc:Bounds x="1915" y="1312" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1895" y="1366" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0g9gqvg_di" bpmnElement="DataOutputAssociation_0g9gqvg">
+        <di:waypoint xsi:type="dc:Point" x="1350" y="1333" />
+        <di:waypoint xsi:type="dc:Point" x="1311" y="1334" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_13lkjmb_di" bpmnElement="Task_13lkjmb">
+        <dc:Bounds x="1890" y="550" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0kj3jpp_di" bpmnElement="ExclusiveGateway_0kj3jpp" isMarkerVisible="true">
+        <dc:Bounds x="1803" y="565" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1783" y="619" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zufiyj_di" bpmnElement="SequenceFlow_0zufiyj">
+        <di:waypoint xsi:type="dc:Point" x="1890" y="590" />
+        <di:waypoint xsi:type="dc:Point" x="1853" y="590" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1827" y="569" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_15ij43o_di" bpmnElement="SequenceFlow_15ij43o">
+        <di:waypoint xsi:type="dc:Point" x="1828" y="565" />
+        <di:waypoint xsi:type="dc:Point" x="1828" y="425" />
+        <di:waypoint xsi:type="dc:Point" x="1323" y="425" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1798" y="489" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0vrvd8u_di" bpmnElement="SequenceFlow_0vrvd8u">
+        <di:waypoint xsi:type="dc:Point" x="1940" y="1312" />
+        <di:waypoint xsi:type="dc:Point" x="1940" y="630" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1910" y="965" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_04m8lk9_di" bpmnElement="Task_04m8lk9">
+        <dc:Bounds x="1674" y="550" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1iy9wd4_di" bpmnElement="SequenceFlow_1iy9wd4">
+        <di:waypoint xsi:type="dc:Point" x="1803" y="590" />
+        <di:waypoint xsi:type="dc:Point" x="1774" y="590" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1744" y="569" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_0imtlf8_di" bpmnElement="DataObjectReference_0imtlf8">
+        <dc:Bounds x="1604" y="565" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1584" y="619" width="77" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1ixmbx4_di" bpmnElement="DataOutputAssociation_1ixmbx4">
+        <di:waypoint xsi:type="dc:Point" x="1674" y="586" />
+        <di:waypoint xsi:type="dc:Point" x="1640" y="586" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_19q42a2_di" bpmnElement="Task_19q42a2">
+        <dc:Bounds x="2193" y="-103" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0z8j34i_di" bpmnElement="DataObjectReference_0z8j34i">
+        <dc:Bounds x="2324" y="-88" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2304" y="-34" width="77" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_135z9vw_di" bpmnElement="Lane_135z9vw">
+        <dc:Bounds x="1077" y="55" width="4184" height="154" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0eih03h_di" bpmnElement="DataObjectReference_0eih03h">
+        <dc:Bounds x="2324" y="102" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2309" y="156" width="71" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0pryisn_di" bpmnElement="Task_0pryisn">
+        <dc:Bounds x="2193" y="87" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_00ntiqh_di" bpmnElement="DataOutputAssociation_00ntiqh">
+        <di:waypoint xsi:type="dc:Point" x="2293" y="127" />
+        <di:waypoint xsi:type="dc:Point" x="2324" y="127" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0gq47ul_di" bpmnElement="SequenceFlow_0gq47ul">
+        <di:waypoint xsi:type="dc:Point" x="1965" y="1337" />
+        <di:waypoint xsi:type="dc:Point" x="2171" y="1337" />
+        <di:waypoint xsi:type="dc:Point" x="2171" y="-63" />
+        <di:waypoint xsi:type="dc:Point" x="2193" y="-63" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2141" y="631" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_19y1zer_di" bpmnElement="SequenceFlow_19y1zer">
+        <di:waypoint xsi:type="dc:Point" x="2243" y="-23" />
+        <di:waypoint xsi:type="dc:Point" x="2243" y="87" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2213" y="26" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1mnhx8n_di" bpmnElement="DataOutputAssociation_1mnhx8n">
+        <di:waypoint xsi:type="dc:Point" x="2293" y="-65" />
+        <di:waypoint xsi:type="dc:Point" x="2324" y="-64" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1dc60kc_di" bpmnElement="SequenceFlow_1dc60kc">
+        <di:waypoint xsi:type="dc:Point" x="1273" y="884" />
+        <di:waypoint xsi:type="dc:Point" x="1273" y="901" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1243" y="886.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0z578o0_di" bpmnElement="SequenceFlow_0z578o0">
+        <di:waypoint xsi:type="dc:Point" x="1273" y="1061" />
+        <di:waypoint xsi:type="dc:Point" x="1273" y="1125" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1243" y="1087" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_09rh5b7_di" bpmnElement="SequenceFlow_09rh5b7">
+        <di:waypoint xsi:type="dc:Point" x="1323" y="1165" />
+        <di:waypoint xsi:type="dc:Point" x="1375" y="1165" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1304" y="1144" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0i4j8or_di" bpmnElement="SequenceFlow_0i4j8or">
+        <di:waypoint xsi:type="dc:Point" x="1425" y="1165" />
+        <di:waypoint xsi:type="dc:Point" x="1468" y="1165" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1402" y="1144" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1e9zayp_di" bpmnElement="SequenceFlow_1e9zayp">
+        <di:waypoint xsi:type="dc:Point" x="1518" y="1205" />
+        <di:waypoint xsi:type="dc:Point" x="1518" y="1297" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1488" y="1245" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ejc1hk_di" bpmnElement="SequenceFlow_0ejc1hk">
+        <di:waypoint xsi:type="dc:Point" x="1568" y="1337" />
+        <di:waypoint xsi:type="dc:Point" x="1915" y="1337" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1697" y="1316" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_094jbqd_di" bpmnElement="SequenceFlow_094jbqd">
+        <di:waypoint xsi:type="dc:Point" x="1400" y="1377" />
+        <di:waypoint xsi:type="dc:Point" x="1400" y="1394" />
+        <di:waypoint xsi:type="dc:Point" x="1940" y="1394" />
+        <di:waypoint xsi:type="dc:Point" x="1940" y="1362" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1625" y="1373" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_0sbu794_di" bpmnElement="Task_0sbu794">
+        <dc:Bounds x="2193" y="246" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0cyz5kz_di" bpmnElement="SequenceFlow_0cyz5kz">
+        <di:waypoint xsi:type="dc:Point" x="2243" y="167" />
+        <di:waypoint xsi:type="dc:Point" x="2243" y="246" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2258" y="200.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_0lsoim7_di" bpmnElement="Task_0lsoim7">
+        <dc:Bounds x="2457" y="-166" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1aot397_di" bpmnElement="Task_1aot397">
+        <dc:Bounds x="2457" y="-80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0ua3i3v_di" bpmnElement="ExclusiveGateway_0ua3i3v" isMarkerVisible="true">
+        <dc:Bounds x="2398" y="261" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2378" y="315" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0985zwv_di" bpmnElement="SequenceFlow_0985zwv">
+        <di:waypoint xsi:type="dc:Point" x="2293" y="286" />
+        <di:waypoint xsi:type="dc:Point" x="2398" y="286" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2300.5" y="265" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1tcynro_di" bpmnElement="EndEvent_1tcynro">
+        <dc:Bounds x="2489" y="268" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2462" y="308" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1biv2xc_di" bpmnElement="SequenceFlow_1biv2xc">
+        <di:waypoint xsi:type="dc:Point" x="2448" y="286" />
+        <di:waypoint xsi:type="dc:Point" x="2489" y="286" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2423.5" y="265" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ag08ww_di" bpmnElement="SequenceFlow_0ag08ww">
+        <di:waypoint xsi:type="dc:Point" x="2423" y="261" />
+        <di:waypoint xsi:type="dc:Point" x="2423" y="-40" />
+        <di:waypoint xsi:type="dc:Point" x="2457" y="-40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2393" y="104.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_18oyp2v_di" bpmnElement="SequenceFlow_18oyp2v">
+        <di:waypoint xsi:type="dc:Point" x="2423" y="261" />
+        <di:waypoint xsi:type="dc:Point" x="2423" y="-126" />
+        <di:waypoint xsi:type="dc:Point" x="2457" y="-126" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2393" y="61.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0qhb0aw_di" bpmnElement="EndEvent_0qhb0aw">
+        <dc:Bounds x="2597" y="8" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2570" y="48" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0nwaenk_di" bpmnElement="ExclusiveGateway_0nwaenk" isMarkerVisible="true">
+        <dc:Bounds x="2590" y="-65" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2570" y="-11" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1qpfodo_di" bpmnElement="SequenceFlow_1qpfodo">
+        <di:waypoint xsi:type="dc:Point" x="2557" y="-40" />
+        <di:waypoint xsi:type="dc:Point" x="2590" y="-40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2529" y="-61" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0v1l1t5_di" bpmnElement="SequenceFlow_0v1l1t5">
+        <di:waypoint xsi:type="dc:Point" x="2615" y="-15" />
+        <di:waypoint xsi:type="dc:Point" x="2615" y="8" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2585" y="-9" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_16xyxgx_di" bpmnElement="Task_16xyxgx">
+        <dc:Bounds x="2707" y="-80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_07pwenu_di" bpmnElement="SequenceFlow_07pwenu">
+        <di:waypoint xsi:type="dc:Point" x="2640" y="-40" />
+        <di:waypoint xsi:type="dc:Point" x="2707" y="-40" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2629" y="-61" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1mrr251_di" bpmnElement="SequenceFlow_1mrr251">
+        <di:waypoint xsi:type="dc:Point" x="2557" y="-126" />
+        <di:waypoint xsi:type="dc:Point" x="2757" y="-126" />
+        <di:waypoint xsi:type="dc:Point" x="2757" y="-80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2612" y="-147" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_178f82o_di" bpmnElement="Task_178f82o">
+        <dc:Bounds x="2707" y="385" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_08lsl5c_di" bpmnElement="SequenceFlow_08lsl5c">
+        <di:waypoint xsi:type="dc:Point" x="2757" y="0" />
+        <di:waypoint xsi:type="dc:Point" x="2757" y="385" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2727" y="186.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_11fvp8f_di" bpmnElement="Task_11fvp8f">
+        <dc:Bounds x="2850" y="246" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0pldv4v_di" bpmnElement="SequenceFlow_0pldv4v">
+        <di:waypoint xsi:type="dc:Point" x="2807" y="425" />
+        <di:waypoint xsi:type="dc:Point" x="2829" y="425" />
+        <di:waypoint xsi:type="dc:Point" x="2829" y="286" />
+        <di:waypoint xsi:type="dc:Point" x="2850" y="286" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2844" y="349.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_1sc4evk_di" bpmnElement="Task_1sc4evk">
+        <dc:Bounds x="2987.1167664670656" y="385" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_11l3uhw_di" bpmnElement="SequenceFlow_11l3uhw">
+        <di:waypoint xsi:type="dc:Point" x="2950" y="286" />
+        <di:waypoint xsi:type="dc:Point" x="2969" y="286" />
+        <di:waypoint xsi:type="dc:Point" x="2969" y="425" />
+        <di:waypoint xsi:type="dc:Point" x="2987" y="425" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2984" y="349.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0jr6gmx_di" bpmnElement="ExclusiveGateway_0jr6gmx" isMarkerVisible="true">
+        <dc:Bounds x="3110.0230263157896" y="400" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3135.0230263157896" y="454" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0lynjx6_di" bpmnElement="EndEvent_0lynjx6">
+        <dc:Bounds x="3117" y="471.93092105263156" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3135" y="511.93092105263156" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ucvgfz_di" bpmnElement="SequenceFlow_1ucvgfz">
+        <di:waypoint xsi:type="dc:Point" x="3087" y="425" />
+        <di:waypoint xsi:type="dc:Point" x="3110" y="425" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3098.5" y="404" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_014ol2z_di" bpmnElement="SequenceFlow_014ol2z">
+        <di:waypoint xsi:type="dc:Point" x="3135" y="450" />
+        <di:waypoint xsi:type="dc:Point" x="3135" y="472" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3150" y="455" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_1oafkon_di" bpmnElement="Task_1oafkon">
+        <dc:Bounds x="4270" y="-92" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1jv7txm_di" bpmnElement="DataObjectReference_1jv7txm">
+        <dc:Bounds x="4401" y="-77" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4381" y="-23" width="77" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_056f5ib_di" bpmnElement="Task_056f5ib">
+        <dc:Bounds x="3300" y="1136" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0y3wpoj_di" bpmnElement="Task_0y3wpoj">
+        <dc:Bounds x="3545" y="1136" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1ykoyw9_di" bpmnElement="ExclusiveGateway_1ykoyw9" isMarkerVisible="true">
+        <dc:Bounds x="3452" y="1151" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3207" y="1205" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0r4iaon_di" bpmnElement="Task_0r4iaon">
+        <dc:Bounds x="3427" y="1308" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_11hpyf7_di" bpmnElement="Task_11hpyf7">
+        <dc:Bounds x="3545" y="1308" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1rs6y2i_di" bpmnElement="DataObjectReference_1rs6y2i">
+        <dc:Bounds x="3352" y="1323" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3332" y="1377" width="77" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0f9u5pp_di" bpmnElement="ExclusiveGateway_0f9u5pp" isMarkerVisible="true">
+        <dc:Bounds x="3992" y="1323" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3927" y="1377" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1cd2bfk_di" bpmnElement="Task_1cd2bfk">
+        <dc:Bounds x="3967" y="561" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_08qbesa_di" bpmnElement="DataObjectReference_08qbesa">
+        <dc:Bounds x="3224" y="1007" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3204" y="1061" width="77" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1cv5euo_di" bpmnElement="ExclusiveGateway_1cv5euo" isMarkerVisible="true">
+        <dc:Bounds x="3880" y="576" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3860" y="630" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0l0zizp_di" bpmnElement="Task_0l0zizp">
+        <dc:Bounds x="3751" y="561" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1g2ct1u_di" bpmnElement="Task_1g2ct1u">
+        <dc:Bounds x="4270" y="98" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0aqfoqz_di" bpmnElement="DataObjectReference_0aqfoqz">
+        <dc:Bounds x="4401" y="113" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4386" y="167" width="71" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0eaggz3_di" bpmnElement="DataObjectReference_0eaggz3">
+        <dc:Bounds x="3681" y="576" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3661" y="630" width="77" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1d7d49m_di" bpmnElement="Task_1d7d49m">
+        <dc:Bounds x="3300" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0o2l51x_di" bpmnElement="DataObjectReference_0o2l51x">
+        <dc:Bounds x="3224" y="411" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3204" y="465" width="77" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1cwtmbt_di" bpmnElement="Task_1cwtmbt">
+        <dc:Bounds x="3300" y="396" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_0bt2dkn_di" bpmnElement="DataObjectReference_0bt2dkn">
+        <dc:Bounds x="3448" y="272" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3428" y="326" width="77" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1sg3wa2_di" bpmnElement="DataObjectReference_1sg3wa2">
+        <dc:Bounds x="3224" y="576" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3204" y="630" width="77" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_11e0cdi_di" bpmnElement="Task_11e0cdi">
+        <dc:Bounds x="3300" y="557" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_10qxjde_di" bpmnElement="Task_10qxjde">
+        <dc:Bounds x="3300" y="804" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_1l3iein_di" bpmnElement="DataObjectReference_1l3iein">
+        <dc:Bounds x="3224" y="819" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3204" y="873" width="77" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0eokvwy_di" bpmnElement="Task_0eokvwy">
+        <dc:Bounds x="3300" y="992" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0g4g70i_di" bpmnElement="Task_0g4g70i">
+        <dc:Bounds x="4542" y="-92" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0vthaaq_di" bpmnElement="Task_0vthaaq">
+        <dc:Bounds x="4686" y="-92" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0v7cj3a_di" bpmnElement="Task_0v7cj3a">
+        <dc:Bounds x="4686" y="396" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0nmqkxc_di" bpmnElement="Task_0nmqkxc">
+        <dc:Bounds x="4846" y="257" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0anqc14_di" bpmnElement="Task_0anqc14">
+        <dc:Bounds x="5034" y="396" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0wxzqms_di" bpmnElement="EndEvent_0wxzqms">
+        <dc:Bounds x="5192" y="418" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="5165" y="458" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_062bjsc_di" bpmnElement="SequenceFlow_062bjsc">
+        <di:waypoint xsi:type="dc:Point" x="4042" y="1348" />
+        <di:waypoint xsi:type="dc:Point" x="4248" y="1348" />
+        <di:waypoint xsi:type="dc:Point" x="4248" y="-52" />
+        <di:waypoint xsi:type="dc:Point" x="4270" y="-52" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4218" y="642" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0iee2rd_di" bpmnElement="DataOutputAssociation_0iee2rd">
+        <di:waypoint xsi:type="dc:Point" x="4370" y="-54" />
+        <di:waypoint xsi:type="dc:Point" x="4401" y="-53" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1z0wdxb_di" bpmnElement="SequenceFlow_1z0wdxb">
+        <di:waypoint xsi:type="dc:Point" x="4320" y="-12" />
+        <di:waypoint xsi:type="dc:Point" x="4320" y="98" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4290" y="37" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0wbw47t_di" bpmnElement="SequenceFlow_0wbw47t">
+        <di:waypoint xsi:type="dc:Point" x="3350" y="1072" />
+        <di:waypoint xsi:type="dc:Point" x="3350" y="1136" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3320" y="1098" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0bm397a_di" bpmnElement="SequenceFlow_0bm397a">
+        <di:waypoint xsi:type="dc:Point" x="3400" y="1176" />
+        <di:waypoint xsi:type="dc:Point" x="3452" y="1176" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3381" y="1155" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1l1aq9v_di" bpmnElement="SequenceFlow_1l1aq9v">
+        <di:waypoint xsi:type="dc:Point" x="3502" y="1176" />
+        <di:waypoint xsi:type="dc:Point" x="3545" y="1176" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3479" y="1155" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ksetjn_di" bpmnElement="SequenceFlow_1ksetjn">
+        <di:waypoint xsi:type="dc:Point" x="3595" y="1216" />
+        <di:waypoint xsi:type="dc:Point" x="3595" y="1308" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3565" y="1256" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1myddgy_di" bpmnElement="SequenceFlow_1myddgy">
+        <di:waypoint xsi:type="dc:Point" x="3477" y="1201" />
+        <di:waypoint xsi:type="dc:Point" x="3477" y="1308" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3402" y="1249" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_14dbkso_di" bpmnElement="DataOutputAssociation_14dbkso">
+        <di:waypoint xsi:type="dc:Point" x="3427" y="1344" />
+        <di:waypoint xsi:type="dc:Point" x="3388" y="1345" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1o4y4d0_di" bpmnElement="SequenceFlow_1o4y4d0">
+        <di:waypoint xsi:type="dc:Point" x="3477" y="1388" />
+        <di:waypoint xsi:type="dc:Point" x="3477" y="1405" />
+        <di:waypoint xsi:type="dc:Point" x="4017" y="1405" />
+        <di:waypoint xsi:type="dc:Point" x="4017" y="1373" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3702" y="1384" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1hc30dr_di" bpmnElement="SequenceFlow_1hc30dr">
+        <di:waypoint xsi:type="dc:Point" x="3645" y="1348" />
+        <di:waypoint xsi:type="dc:Point" x="3992" y="1348" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3774" y="1327" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_171crg5_di" bpmnElement="SequenceFlow_171crg5">
+        <di:waypoint xsi:type="dc:Point" x="4017" y="1323" />
+        <di:waypoint xsi:type="dc:Point" x="4017" y="641" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3987" y="976" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1idc8z1_di" bpmnElement="SequenceFlow_1idc8z1">
+        <di:waypoint xsi:type="dc:Point" x="3967" y="601" />
+        <di:waypoint xsi:type="dc:Point" x="3930" y="601" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3904.5" y="580" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1byozfw_di" bpmnElement="DataOutputAssociation_1byozfw">
+        <di:waypoint xsi:type="dc:Point" x="3300" y="1032" />
+        <di:waypoint xsi:type="dc:Point" x="3260" y="1033" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_06n0tpi_di" bpmnElement="SequenceFlow_06n0tpi">
+        <di:waypoint xsi:type="dc:Point" x="3905" y="576" />
+        <di:waypoint xsi:type="dc:Point" x="3905" y="436" />
+        <di:waypoint xsi:type="dc:Point" x="3400" y="436" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3875" y="500" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_047yl06_di" bpmnElement="SequenceFlow_047yl06">
+        <di:waypoint xsi:type="dc:Point" x="3880" y="601" />
+        <di:waypoint xsi:type="dc:Point" x="3851" y="601" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3821.5" y="580" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0fz4u7x_di" bpmnElement="DataOutputAssociation_0fz4u7x">
+        <di:waypoint xsi:type="dc:Point" x="3751" y="597" />
+        <di:waypoint xsi:type="dc:Point" x="3717" y="597" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_08lskjh_di" bpmnElement="DataOutputAssociation_08lskjh">
+        <di:waypoint xsi:type="dc:Point" x="4370" y="138" />
+        <di:waypoint xsi:type="dc:Point" x="4401" y="138" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_19qb7v7_di" bpmnElement="SequenceFlow_19qb7v7">
+        <di:waypoint xsi:type="dc:Point" x="3350" y="337" />
+        <di:waypoint xsi:type="dc:Point" x="3350" y="396" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3320" y="361.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_12440yn_di" bpmnElement="DataOutputAssociation_12440yn">
+        <di:waypoint xsi:type="dc:Point" x="3400" y="298" />
+        <di:waypoint xsi:type="dc:Point" x="3448" y="298" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1jgqv1v_di" bpmnElement="DataOutputAssociation_1jgqv1v">
+        <di:waypoint xsi:type="dc:Point" x="3300" y="438" />
+        <di:waypoint xsi:type="dc:Point" x="3260" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0a1eqdy_di" bpmnElement="SequenceFlow_0a1eqdy">
+        <di:waypoint xsi:type="dc:Point" x="3350" y="476" />
+        <di:waypoint xsi:type="dc:Point" x="3350" y="557" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3320" y="511.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1kcaine_di" bpmnElement="DataOutputAssociation_1kcaine">
+        <di:waypoint xsi:type="dc:Point" x="3300" y="599" />
+        <di:waypoint xsi:type="dc:Point" x="3260" y="599" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0ibqar5_di" bpmnElement="DataOutputAssociation_0ibqar5">
+        <di:waypoint xsi:type="dc:Point" x="3300" y="847" />
+        <di:waypoint xsi:type="dc:Point" x="3260" y="849" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_05zurvx_di" bpmnElement="SequenceFlow_05zurvx">
+        <di:waypoint xsi:type="dc:Point" x="3350" y="884" />
+        <di:waypoint xsi:type="dc:Point" x="3350" y="901" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3320" y="886.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1e6jf0a_di" bpmnElement="SequenceFlow_1e6jf0a">
+        <di:waypoint xsi:type="dc:Point" x="4642" y="-52" />
+        <di:waypoint xsi:type="dc:Point" x="4686" y="-52" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4664" y="-73" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0w973g2_di" bpmnElement="SequenceFlow_0w973g2">
+        <di:waypoint xsi:type="dc:Point" x="4736" y="-12" />
+        <di:waypoint xsi:type="dc:Point" x="4736" y="396" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4706" y="186" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0dhs7nc_di" bpmnElement="SequenceFlow_0dhs7nc">
+        <di:waypoint xsi:type="dc:Point" x="4786" y="436" />
+        <di:waypoint xsi:type="dc:Point" x="4896" y="436" />
+        <di:waypoint xsi:type="dc:Point" x="4896" y="337" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4796" y="415" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0hb7rtg_di" bpmnElement="SequenceFlow_0hb7rtg">
+        <di:waypoint xsi:type="dc:Point" x="5134" y="436" />
+        <di:waypoint xsi:type="dc:Point" x="5192" y="436" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="5118" y="415" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1tiffgn_di" bpmnElement="SequenceFlow_1tiffgn">
+        <di:waypoint xsi:type="dc:Point" x="3135" y="400" />
+        <di:waypoint xsi:type="dc:Point" x="3135" y="297" />
+        <di:waypoint xsi:type="dc:Point" x="3300" y="297" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3150" y="342.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_0z9h9dk_di" bpmnElement="DataObjectReference_0z9h9dk">
+        <dc:Bounds x="2834" y="-65" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2818" y="-11" width="68" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0k9btqb_di" bpmnElement="DataOutputAssociation_0k9btqb">
+        <di:waypoint xsi:type="dc:Point" x="2807" y="-39" />
+        <di:waypoint xsi:type="dc:Point" x="2834" y="-41" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fiqo3r_di" bpmnElement="SequenceFlow_1fiqo3r">
+        <di:waypoint xsi:type="dc:Point" x="4320" y="178" />
+        <di:waypoint xsi:type="dc:Point" x="4320" y="196" />
+        <di:waypoint xsi:type="dc:Point" x="4495" y="196" />
+        <di:waypoint xsi:type="dc:Point" x="4495" y="-52" />
+        <di:waypoint xsi:type="dc:Point" x="4542" y="-52" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4407.5" y="175" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_0ypeiie_di" bpmnElement="DataObjectReference_0ypeiie">
+        <dc:Bounds x="4816" y="-77" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4800" y="-23" width="68" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0clc5d6_di" bpmnElement="DataOutputAssociation_0clc5d6">
+        <di:waypoint xsi:type="dc:Point" x="4786" y="-53" />
+        <di:waypoint xsi:type="dc:Point" x="4816" y="-53" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1yg6zfj_di" bpmnElement="ExclusiveGateway_1yg6zfj" isMarkerVisible="true">
+        <dc:Bounds x="4971.152592592593" y="272" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4996.152592592593" y="326" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0n5mf08_di" bpmnElement="SequenceFlow_0n5mf08">
+        <di:waypoint xsi:type="dc:Point" x="4946" y="297" />
+        <di:waypoint xsi:type="dc:Point" x="4971" y="297" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4958.5" y="276" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0y67308_di" bpmnElement="SequenceFlow_0y67308">
+        <di:waypoint xsi:type="dc:Point" x="4996" y="322" />
+        <di:waypoint xsi:type="dc:Point" x="4996" y="436" />
+        <di:waypoint xsi:type="dc:Point" x="5034" y="436" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="5011" y="373" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1jusrz0_di" bpmnElement="SequenceFlow_1jusrz0">
+        <di:waypoint xsi:type="dc:Point" x="4996" y="272" />
+        <di:waypoint xsi:type="dc:Point" x="4996" y="232" />
+        <di:waypoint xsi:type="dc:Point" x="3350" y="232" />
+        <di:waypoint xsi:type="dc:Point" x="3350" y="257" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4173" y="211" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_0dqwy5s_di" bpmnElement="Lane_0dqwy5s">
+        <dc:Bounds x="1077" y="-347" width="4184" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1dfnibc_di" bpmnElement="ExclusiveGateway_1dfnibc" isMarkerVisible="true">
+        <dc:Bounds x="1343" y="-207" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1323" y="-153" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0uu1x4g_di" bpmnElement="SequenceFlow_0uu1x4g">
+        <di:waypoint xsi:type="dc:Point" x="1393" y="-182" />
+        <di:waypoint xsi:type="dc:Point" x="2783" y="-182" />
+        <di:waypoint xsi:type="dc:Point" x="2783" y="-80" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2043" y="-203" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1co697b_di" bpmnElement="SequenceFlow_1co697b">
+        <di:waypoint xsi:type="dc:Point" x="1368" y="-157" />
+        <di:waypoint xsi:type="dc:Point" x="1368" y="286" />
+        <di:waypoint xsi:type="dc:Point" x="1323" y="286" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1338" y="58.5" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1mvsyp3_di" bpmnElement="SequenceFlow_1mvsyp3">
+        <di:waypoint xsi:type="dc:Point" x="1323" y="-281" />
+        <di:waypoint xsi:type="dc:Point" x="1368" y="-281" />
+        <di:waypoint xsi:type="dc:Point" x="1368" y="-207" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1300.5" y="-302" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_1fbzppx_di" bpmnElement="Lane_1fbzppx">
+        <dc:Bounds x="1077" y="674" width="4184" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_06cdc8y_di" bpmnElement="Task_06cdc8y">
+        <dc:Bounds x="1223" y="691" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_059qmag_di" bpmnElement="SequenceFlow_059qmag">
+        <di:waypoint xsi:type="dc:Point" x="1273" y="626" />
+        <di:waypoint xsi:type="dc:Point" x="1273" y="691" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1288" y="652.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_02b4isk_di" bpmnElement="SequenceFlow_02b4isk">
+        <di:waypoint xsi:type="dc:Point" x="1273" y="771" />
+        <di:waypoint xsi:type="dc:Point" x="1273" y="804" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1288" y="781.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_027f3ha_di" bpmnElement="DataObjectReference_027f3ha">
+        <dc:Bounds x="1147" y="706" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1127" y="760" width="77" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_180sgva_di" bpmnElement="DataOutputAssociation_180sgva">
+        <di:waypoint xsi:type="dc:Point" x="1223" y="730" />
+        <di:waypoint xsi:type="dc:Point" x="1183" y="730" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0wrv0ax_di" bpmnElement="ExclusiveGateway_0wrv0ax" isMarkerVisible="true">
+        <dc:Bounds x="1248" y="901.2073050345509" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1273" y="955.2073050345509" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ts8ei2_di" bpmnElement="SequenceFlow_0ts8ei2">
+        <di:waypoint xsi:type="dc:Point" x="1273" y="951" />
+        <di:waypoint xsi:type="dc:Point" x="1273" y="981" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1288" y="960" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ky2oa0_di" bpmnElement="SequenceFlow_0ky2oa0">
+        <di:waypoint xsi:type="dc:Point" x="1248" y="926" />
+        <di:waypoint xsi:type="dc:Point" x="1113" y="926" />
+        <di:waypoint xsi:type="dc:Point" x="1113" y="1165" />
+        <di:waypoint xsi:type="dc:Point" x="1223" y="1165" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1128" y="1039.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_0fbx7qq_di" bpmnElement="Task_0fbx7qq">
+        <dc:Bounds x="3300" y="691" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1k1zulm_di" bpmnElement="SequenceFlow_1k1zulm">
+        <di:waypoint xsi:type="dc:Point" x="3350" y="637" />
+        <di:waypoint xsi:type="dc:Point" x="3350" y="691" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3365" y="658" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0cjw3ml_di" bpmnElement="SequenceFlow_0cjw3ml">
+        <di:waypoint xsi:type="dc:Point" x="3350" y="771" />
+        <di:waypoint xsi:type="dc:Point" x="3350" y="804" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3365" y="781.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_0spotjv_di" bpmnElement="DataObjectReference_0spotjv">
+        <dc:Bounds x="3224" y="706" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3204" y="760" width="77" height="48" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1pubi9t_di" bpmnElement="DataOutputAssociation_1pubi9t">
+        <di:waypoint xsi:type="dc:Point" x="3300" y="729" />
+        <di:waypoint xsi:type="dc:Point" x="3260" y="732" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0v7jn5t_di" bpmnElement="ExclusiveGateway_0v7jn5t" isMarkerVisible="true">
+        <dc:Bounds x="3325" y="901" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3350" y="955" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0e4uo13_di" bpmnElement="SequenceFlow_0e4uo13">
+        <di:waypoint xsi:type="dc:Point" x="3350" y="951" />
+        <di:waypoint xsi:type="dc:Point" x="3350" y="992" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3365" y="965.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_04onmju_di" bpmnElement="SequenceFlow_04onmju">
+        <di:waypoint xsi:type="dc:Point" x="3325" y="926" />
+        <di:waypoint xsi:type="dc:Point" x="3195" y="926" />
+        <di:waypoint xsi:type="dc:Point" x="3195" y="1176" />
+        <di:waypoint xsi:type="dc:Point" x="3300" y="1176" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3210" y="1045" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0vtasp9_di" bpmnElement="SequenceFlow_0vtasp9">
+        <di:waypoint xsi:type="dc:Point" x="1724" y="630" />
+        <di:waypoint xsi:type="dc:Point" x="1724" y="844" />
+        <di:waypoint xsi:type="dc:Point" x="1323" y="844" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1739" y="731" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1dh67t3_di" bpmnElement="SequenceFlow_1dh67t3">
+        <di:waypoint xsi:type="dc:Point" x="3801" y="641" />
+        <di:waypoint xsi:type="dc:Point" x="3801" y="844" />
+        <di:waypoint xsi:type="dc:Point" x="3400" y="844" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3816" y="736.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
+', 
+			 6,
+			 '35 01') 
+			 RETURNING "ID_PROCESO"; 
+
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Adjuntar documento de despacho',
+			'Task_0pryisn',  
+			NULL, 
+			655, 
+			1, 
+            11,
+			TRUE, 
+			FALSE, 
+			7, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Elaborar propuesta de oficio con resultados de la fiscalización',
+			'Task_16tiofy',  
+			NULL, 
+			655, 
+			1, 
+            2,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar propuesta de oficio con resultados de la fiscalización',
+			'Task_0p54q6t',  
+			NULL, 
+			655, 
+			1, 
+            3,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar y visar propuesta de oficio con resultados de la fiscalización',
+			'Task_1bl4gm5',  
+			NULL, 
+			655, 
+			1, 
+            4,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar observaciones realizadas por Superintendenta e a oficio con resultados de la fiscalización',
+			'Task_13lkjmb',  
+			NULL, 
+			655, 
+			1, 
+            10,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Aprobar y visar oficio con resultados de la fiscalización',
+			'Task_04m8lk9',  
+			NULL, 
+			655, 
+			1, 
+            11,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Analizar solicitud de espera de respuesta obligatoria u opcional a oficina de partes ',
+			'Task_0sbu794',  
+			NULL, 
+			655, 
+			1, 
+            12,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			TRUE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Asignar número y fecha y adjuntar documento',
+			'Task_19q42a2',  
+			NULL, 
+			655, 
+			1, 
+            10,
+			TRUE, 
+			FALSE, 
+			6, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			TRUE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Analizar respuesta de sociedad operadora',
+			'Task_178f82o',  
+			NULL, 
+			655, 
+			1, 
+            3,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Analizar respuesta de sociedad operadora',
+			'Task_11fvp8f',  
+			NULL, 
+			655, 
+			1, 
+            4,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Definir acción sobre respuesta de sociedad operadora',
+			'Task_1sc4evk',  
+			NULL, 
+			655, 
+			1, 
+            5,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			TRUE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Asignar número y fecha y adjuntar documento',
+			'Task_1oafkon',  
+			NULL, 
+			655, 
+			1, 
+            15,
+			TRUE, 
+			FALSE, 
+			6, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			TRUE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar observaciones realizadas por Superintendenta e a oficio con aclaración de resultados de la fiscalización',
+			'Task_1cd2bfk',  
+			NULL, 
+			655, 
+			1, 
+            15,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Aprobar y visar oficio con aclaración de resultados de la fiscalización',
+			'Task_0l0zizp',  
+			NULL, 
+			655, 
+			1, 
+            16,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Adjuntar documento de despacho',
+			'Task_1g2ct1u',  
+			NULL, 
+			655, 
+			1, 
+            16,
+			TRUE, 
+			FALSE, 
+			7, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Elaborar propuesta de oficio con aclaración de resultados de la fiscalización',
+			'Task_1d7d49m',  
+			NULL, 
+			655, 
+			1, 
+            6,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar propuesta de oficio con aclaración de resultados de la fiscalización',
+			'Task_1cwtmbt',  
+			NULL, 
+			655, 
+			1, 
+            7,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar y visar propuesta de oficio con aclaración de resultados de la fiscalización',
+			'Task_11e0cdi',  
+			NULL, 
+			655, 
+			1, 
+            8,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Esperar respuesta de sociedad operadora',
+			'Task_0g4g70i',  
+			NULL, 
+			655, 
+			5, 
+            17,
+			TRUE, 
+			FALSE, 
+			7, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			TRUE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Adjuntar respuesta de la sociedad operadora',
+			'Task_0vthaaq',  
+			NULL, 
+			655, 
+			1, 
+            18,
+			TRUE, 
+			FALSE, 
+			1, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Analizar respuesta de sociedad operadora',
+			'Task_0nmqkxc',  
+			NULL, 
+			655, 
+			1, 
+            20,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Definir acción sobre respuesta de sociedad operadora',
+			'Task_0anqc14',  
+			NULL, 
+			655, 
+			1, 
+            21,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			TRUE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Analizar respuesta de sociedad operadora',
+			'Task_0v7cj3a',  
+			NULL, 
+			655, 
+			1, 
+            19,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Crear expediente',
+			'Task_0y4h9p6',  
+			NULL, 
+			655, 
+			1, 
+            1,
+			TRUE, 
+			FALSE, 
+			1, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Esperar respuesta obligatoria de sociedad operadora',
+			'Task_0lsoim7',  
+			NULL, 
+			655, 
+			10, 
+            13,
+			TRUE, 
+			FALSE, 
+			7, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			TRUE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Esperar respuesta opcional de sociedad operadora',
+			'Task_1aot397',  
+			NULL, 
+			655, 
+			60, 
+            13,
+			TRUE, 
+			FALSE, 
+			7, 
+            TRUE, 
+			TRUE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			TRUE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Adjuntar respuesta de la sociedad operadora',
+			'Task_16xyxgx',  
+			NULL, 
+			655, 
+			1, 
+            2,
+			TRUE, 
+			FALSE, 
+			1, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar y visar oficio con resultados de la fiscalización',
+			'Task_1uaf35p',  
+			NULL, 
+			655, 
+			1, 
+            7,
+			TRUE, 
+			FALSE, 
+			8, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Determinar tipo de firma',
+			'Task_0452ylp',  
+			NULL, 
+			655, 
+			1, 
+            8,
+			TRUE, 
+			FALSE, 
+			5, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Imprimir documento para firma manual',
+			'Task_0qknrtt',  
+			NULL, 
+			655, 
+			1, 
+            9,
+			TRUE, 
+			FALSE, 
+			5, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar propuesta y firmar documento de forma electrónica',
+			'Task_109f3vq',  
+			NULL, 
+			655, 
+			1, 
+            9,
+			TRUE, 
+			FALSE, 
+			5, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			TRUE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar propuesta y firmar documento de forma manual',
+			'Task_1slly3e',  
+			NULL, 
+			655, 
+			1, 
+            10,
+			TRUE, 
+			FALSE, 
+			5, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Determinar tipo de firma',
+			'Task_056f5ib',  
+			NULL, 
+			655, 
+			1, 
+            12,
+			TRUE, 
+			FALSE, 
+			5, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Imprimir documento para firma manual',
+			'Task_0y3wpoj',  
+			NULL, 
+			655, 
+			1, 
+            13,
+			TRUE, 
+			FALSE, 
+			5, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar propuesta y firmar documento de forma electrónica',
+			'Task_0r4iaon',  
+			NULL, 
+			655, 
+			1, 
+            13,
+			TRUE, 
+			FALSE, 
+			5, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			TRUE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar propuesta y firmar documento de forma manual',
+			'Task_11hpyf7',  
+			NULL, 
+			655, 
+			1, 
+            14,
+			TRUE, 
+			FALSE, 
+			5, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar y visar oficio con aclaración de resultados de la fiscalización',
+			'Task_0eokvwy',  
+			NULL, 
+			655, 
+			1, 
+            11,
+			TRUE, 
+			FALSE, 
+			8, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar oficio con resultados de la fiscalización',
+			'Task_06cdc8y',  
+			NULL, 
+			655, 
+			1, 
+            5,
+			TRUE, 
+			FALSE, 
+			8, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar oficio con resultados de la fiscalización',
+			'Task_1ow0ptm',  
+			NULL, 
+			655, 
+			1, 
+            6,
+			TRUE, 
+			FALSE, 
+			8, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar oficio con resultados de la fiscalización',
+			'Task_0fbx7qq',  
+			NULL, 
+			655, 
+			1, 
+            9,
+			TRUE, 
+			FALSE, 
+			8, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA",
+			"B_ASIGNA_NUM_DOC",
+			"B_ESPERAR_RESP",
+			"B_CONFORMA_EXPEDIENTE"	)
+    	VALUES (
+			'Revisar oficio con aclaración de resultados de la fiscalización',
+			'Task_10qxjde',  
+			NULL, 
+			655, 
+			1, 
+            10,
+			TRUE, 
+			FALSE, 
+			8, 
+            TRUE, 
+			FALSE, 
+			'OR', 
+            FALSE, 
+			FALSE,
+			FALSE,
+			FALSE,
+			FALSE)
+			RETURNING "ID_TAREA";
+
+
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Documento de despacho'
+				,FALSE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Oficio con resultados de la fiscalización'
+				,FALSE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3745 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Oficio con resultados de la fiscalización'
+				,FALSE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3746 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			    "B_CONFORMA_EXPEDIENTE"=TRUE, 
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3745 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Oficio con aclaración de resultados de la fiscalización'
+				,TRUE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3744 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Oficio con aclaración de  resultados de la fiscalización'
+				,FALSE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Oficio con aclaración de resultados de la fiscalización'
+				,FALSE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Oficio con aclaración de resultados de la fiscalización'
+				,FALSE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3747 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Respuesta de sociedad operadora'
+				,FALSE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3751 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3745 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    "B_APLICA_FEA"=TRUE,  
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3745 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    "B_APLICA_FEA"=TRUE,  
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3747 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3747 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3745 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3745 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3750 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
+			   
+			   
+			    
+			   "B_ES_DOCUMENTO_CONDUCTOR"=FALSE  WHERE "ID_TIPO_DE_DOCUMENTO"=3747 RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+
+
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Administrador de documentos') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Analista de fiscalización - Profesional DFIS') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Analista de fiscalización - Coordinador DFIS') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Responsable de fiscalización - Jefe DFIS') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Encargado de despacho') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Creador de expediente') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Visador jurídico - Coordinador DJUR') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Visador jurídico - Jefe DJUR') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Aprobador final') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Tramitador de firma') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Visador jurídico - Profesional DJUR') RETURNING "ID_RESPONSABILIDAD";
+
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13558
+				, 13564);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13559
+				, 13560);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13560
+				, 13561);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13561
+				, 13595);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13562
+				, 13560);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13562
+				, 13563);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13563
+				, 13596);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13564
+				, 13583);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13564
+				, 13582);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13565
+				, 13558);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13566
+				, 13567);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13567
+				, 13568);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13568
+				, 13573);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13569
+				, 13572);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13570
+				, 13574);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13570
+				, 13571);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13571
+				, 13598);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13572
+				, 13576);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13573
+				, 13574);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13574
+				, 13575);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13575
+				, 13597);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13576
+				, 13577);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13577
+				, 13580);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13578
+				, 13579);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13578
+				, 13573);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13580
+				, 13578);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13581
+				, 13584);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13581
+				, 13559);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13582
+				, 13584);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13583
+				, 13584);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13584
+				, 13566);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13585
+				, 13586);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13586
+				, 13588);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13586
+				, 13587);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13587
+				, 13589);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13588
+				, 13562);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13588
+				, 13565);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13589
+				, 13562);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13589
+				, 13565);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13590
+				, 13591);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13590
+				, 13592);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13591
+				, 13593);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13592
+				, 13569);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13592
+				, 13570);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13593
+				, 13569);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13593
+				, 13570);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13594
+				, 13590);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13595
+				, 13596);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13596
+				, 13585);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13596
+				, 13586);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13597
+				, 13598);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13598
+				, 13594);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				13598
+				, 13590);
+
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13558
+							, 3744
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13558;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13559
+							, 3745
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13559;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13560
+							, 3745
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13560;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13561
+							, 3746
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13561;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13563
+							, 3746
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13563;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13565
+							, 3745
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=true
+							 WHERE "ID_TAREA"=13565;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13569
+							, 3747
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=true
+							 WHERE "ID_TAREA"=13569;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13571
+							, 3748
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13571;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13572
+							, 3744
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13572;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13573
+							, 3747
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13573;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13574
+							, 3749
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13574;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13575
+							, 3750
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13575;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13577
+							, 3751
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13577;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13584
+							, 3751
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13584;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13585
+							, 3745
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13585;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13588
+							, 3745
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13588;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13592
+							, 3747
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13592;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13594
+							, 3747
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13594;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13595
+							, 3745
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13595;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13596
+							, 3745
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13596;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13597
+							, 3750
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13597;
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							13598
+							, 3747
+							, 1); UPDATE sgdp."SGDP_TAREAS"
+							   SET "B_CONFORMA_EXPEDIENTE"=false
+							 WHERE "ID_TAREA"=13598;
+
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4193
+							, 13565);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4193
+							, 13569);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4193
+							, 13576);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4193
+							, 13577);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4193
+							, 13582);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4193
+							, 13583);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4193
+							, 13584);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4194
+							, 13559);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4194
+							, 13564);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4194
+							, 13567);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4194
+							, 13573);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4194
+							, 13578);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4195
+							, 13560);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4195
+							, 13566);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4195
+							, 13568);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4195
+							, 13574);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4195
+							, 13579);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4195
+							, 13580);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4196
+							, 13561);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4196
+							, 13562);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4196
+							, 13563);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4196
+							, 13570);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4196
+							, 13571);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4196
+							, 13575);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4197
+							, 13558);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4197
+							, 13572);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4198
+							, 13581);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4199
+							, 13596);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4199
+							, 13598);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4200
+							, 13585);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4200
+							, 13594);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4201
+							, 13588);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4201
+							, 13589);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4201
+							, 13592);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4201
+							, 13593);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4202
+							, 13586);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4202
+							, 13587);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4202
+							, 13590);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4202
+							, 13591);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4203
+							, 13595);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							4203
+							, 13597);
+

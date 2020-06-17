@@ -1,0 +1,841 @@
+<?php 
+
+include_once('../logica/l_get_info_form.php');
+
+$tiposEventos=getTiposEventos();
+$tiposNodos=getTiposNodos();
+//$campos=getRelaciones('');
+
+?>
+<!DOCTYPE HTML>
+<!--
+	Read Only by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+<title>Formulario de eventos</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet" href="assets/css/main.css" />
+<link href="assets/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+<!--<script src="assets/js/jquery.tabledit.js"></script>-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollzer.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/skel.min.js"></script>
+<script src="assets/js/util.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="assets/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="assets/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+
+<script>
+			  $( function() {
+				$( "#formNodo" ).dialog({
+				  autoOpen: false,
+				  height: "auto",
+      			  width: "auto",
+				  modal: true,
+				  show: {
+					effect: "blind",
+					duration: 100
+				  },
+				  hide: {
+					effect: "blind",
+					duration: 100
+				  }
+				});
+  			} );
+			
+			$( function() {
+				$( "#formRel" ).dialog({
+				  autoOpen: false,
+				  height: "auto",
+      			  width: "auto",
+				  modal: true,
+				  show: {
+					effect: "blind",
+					duration: 100
+				  },
+				  hide: {
+					effect: "blind",
+					duration: 100
+				  }
+				});
+  			} );
+</script>
+<script type="text/javascript">
+			function addEntidad(){
+				var val = $('#txtEntidad').val();
+								
+			}
+		
+			function addRel(){
+				var nodo1 = $('#txtNodo1').val();
+				var relacion = $('#txtRelacion').val();
+				var nodo2 = $('#txtNodo2').val();
+				
+				if(nodo1=='' || relacion=='' || nodo2==''){
+					alert('campos no pueden estar vacíos')
+					return;
+				}
+				var val= nodo1+'||'+relacion+'||'+nodo2;
+				$('#tablaRelacion tbody').append('<tr><td>'+nodo1+'</td><td>'+relacion+'</td><td>'+nodo2+'</td><td><input type="hidden" value="'+val+'" name="relaciones[]"><input name="Button" onClick="removeRel(this)" type="button" class="small" value="Eliminar" /></td></tr>');
+				$('#txtNodo1').val('');
+				$('#txtRelacion').val('');
+				$('#txtNodo2').val('');
+				
+			}
+			
+			function removeRel(el){
+				$(el).parent().parent().remove();
+			}
+			
+			function validaFormato(tipo, el, lista){
+				if($(el).val().trim()=='' || $(el).val().trim()=='#' || $(el).val().trim()=='@'){
+					return;
+				}
+				
+				if(tipo==1){
+					var regex = /[@|#]+([A-Za-z]*)\w+/;
+				}
+				if(tipo==2){
+					var regex = /([A-Za-z]*)\w+/;
+				}
+				
+				if (regex.test($(el).val().trim())) {
+					$(el).val($(el).val().trim());
+					//alert('ok');			
+				} else {
+					alert('Ingrese el formato correcto');
+					$(el).val('');
+					return;
+				}
+				$(el).val($(el).val().trim());
+				
+				if(lista==0){
+					getRecomendRel(el, lista);
+				}else{
+					getRecomend(el, lista);
+				}
+			}
+			
+			function getInfoEvento(el){
+				var tipoEvento = $(el).val();
+				if(tipoEvento==''){
+					$('#tablaValHechos').html('');
+					return;
+				}
+				$.post("../logica/l_get_info_form.php", { func: "getAtr", idEvento: tipoEvento},
+				function(data){
+					//alert(data);
+					$('#tablaValHechos').html(data);					
+				});				
+			}
+			
+			function getInfoNodo(el){
+				var tipoNodo = $(el).val();
+				if(tipoNodo==''){
+					$('#tablaValNodos').html('');
+					return;
+				}
+				$.post("../logica/l_get_info_form.php", { func: "getAtrN", idNodo: tipoNodo},
+				function(data){
+					//alert(data);
+					$('#tablaValNodos').html(data);					
+				});				
+			}
+			
+			function getRecomend(el,lista){
+				   				
+				$.post("../logica/l_get_info_form.php", { func: "getRecom", valRec: $( el ).val(), valLista:lista},
+				function(data){
+					//alert(data);
+					
+					var lis="#suggesstion-box2";
+					if(lista==1){
+						lis="#suggesstion-box1";					
+					}
+					$(lis).show();
+					$(lis).html(data);
+					$(el).css("background","#FFF");					
+				});	
+			
+			}
+			
+			function getRecomendRel(el,lista){
+				   				
+				$.post("../logica/l_get_info_form.php", { func: "getRecomRel", valRec: $( el ).val()},
+				function(data){
+					var lis="#sugRel";
+					$(lis).show();
+					$(lis).html(data);
+					$(el).css("background","#FFF");					
+				});	
+			
+			}
+			
+			function selectVal1(val,sug) {
+				$('#txtNodo1').val(val);
+				$(sug).parent().hide();
+			}
+			
+			function selectVal2(val,sug) {
+				$('#txtNodo2').val(val);
+				$(sug).parent().hide();
+			}
+			
+			function selectVal0(val,sug) {
+				$('#txtRelacion').val(val);
+				$(sug).parent().hide();
+			}
+			
+			function upFormNodo(){
+				$( "#formNodo" ).dialog( "open" );
+			}
+			
+			function upFormRel(){
+				$( "#formRel" ).dialog( "open" );
+			}
+			
+			function guardarHecho(){
+				var url1 = "../logica/l_save_form.php";
+				var contFile = $('input[type=file]').length;
+				var myForm = document.getElementById('formHecho');
+				var form_data = new FormData(myForm);  
+				for(var i=0; i<contFile; i++){
+					var file_data = $('input[type=file]')[i].files;
+					form_data.append('archivo[]', file_data);
+				}
+				
+				$.ajax({                        
+				   url: url1, 
+				   type: "POST",      
+				   data: form_data, 
+				   processData: false,
+                   contentType: false,
+				   success: function(data)             
+				   {
+				   		alert(data);
+					 //$('#resp').html(data);               
+				   }
+			   });			
+			}
+			
+			function saveNodo(){
+				var url1 = "../logica/l_save_form.php";
+				var contFile = $('input[type=file]').length;
+				var myForm = document.getElementById('formNodoN');
+				var form_data = new FormData(myForm);  
+				
+				
+				$.ajax({                        
+				   url: url1, 
+				   type: "POST",      
+				   data: form_data, 
+				   processData: false,
+                   contentType: false,
+				   success: function(data)             
+				   {
+				   		alert(data);
+					 //$('#resp').html(data);               
+				   }
+			   });			
+			}
+			
+			function saveRelacion(){
+				var url1 = "../logica/l_save_form.php";
+				var myForm = document.getElementById('formRelN');
+				var form_data = new FormData(myForm);  
+				$.ajax({                        
+				   url: url1, 
+				   type: "POST",      
+				   data: form_data, 
+				   processData: false,
+                   contentType: false,
+				   success: function(data)             
+				   {
+				   		alert(data);
+					 //$('#resp').html(data);               
+				   }
+			   });			
+			}
+			
+			$(document).ready(function() {
+			 prb();
+			});
+			
+			
+			
+			function prb(){
+				$("#myTags").tagit({
+					fieldName: "tags[]",
+					autocomplete: ({
+						source: function(request, response) {
+							
+							var form_data = new FormData(); 
+							form_data.append('tag',request.term); 
+							$.ajax({
+								url: '../logica/l_get_info_form.php',
+								data: form_data,
+								type: "POST",     
+							    processData: false,
+							    contentType : false,
+								dataType : 'json',
+								success: function(data) {
+									console.log(data);
+									response($.map(data, function(item) {
+										return {
+											label: item,
+											value: item
+										}
+									}));
+								},
+								error: function(request, status, error) {
+									alert(error);
+									console.log(request.term);
+								}
+							})
+						},
+						minLength: 2,
+						delay: 0
+					})
+				//fin tagit
+				});
+			
+			}
+		</script>
+</head>
+<body ccID="8354">
+<!-- Header -->
+<section ccID="8379" id="header">
+  <header ccID="8404">
+    <h1 ccID="8418" id="logo"><a ccID="8432" href="#">Registro de eventos</a></h1>
+  </header>
+  <nav ccID="8489" id="nav">
+    <ul ccID="8509">
+      <li ccID="8521"><a ccID="8525" href="#one" class="active">Tipo de evento</a></li>
+      <li ccID="8586"><a ccID="8590" href="#two">Datos del evento</a></li>
+      <li ccID="8638"><a ccID="8642" href="#three">Entidades y relaciones</a></li>
+    </ul>
+  </nav>
+  <footer ccID="8715"> </footer>
+</section>
+<!-- Wrapper -->
+<div ccID="8765" id="wrapper">
+  <!-- Main -->
+  <div ccID="8804" id="main">
+    <!-- One -->
+    <form ccID="8843" method="post" id="formHecho">
+      <section ccID="8886" id="one">
+        <div ccID="8914" class="container">
+          <header ccID="8949" class="major">
+            <h2 ccID="8985">Registro de eventos</h2>
+            <p ccID="9027">Sistema de inteligencia SCJ</p>
+          </header>
+          Seleccione el tipo de evento a registrar
+          <div ccID="9146" class="select-wrapper">
+            <select ccID="9188" name="cbxTipoHecho" id="cbxTipoHecho" onChange="getInfoEvento(this)">
+              <option ccID="9281" value="" selected="selected">- Tipo de hecho -</option>
+              <?php
+								for($i=0;$i<count($tiposEventos);$i++){
+									if($i!=0){
+										echo ',
+										';
+									}
+									echo '<option value="'.$tiposEventos[$i][0].'" title="'.$tiposEventos[$i][4].'">'.$tiposEventos[$i][1].'</option>
+									';
+								}
+								?>
+            </select>
+          </div>
+        </div>
+      </section>
+      <!-- Two -->
+      <section ccID="9743" id="two">
+        <div ccID="9771" class="container">
+          <h3 ccID="9806">Datos </h3>
+          <table ccID="9833" border="1" id="tablaValHechos">
+          </table>
+		  <h3 ccID="9897">Temas relacionados</h3>
+			  <ul ccID="9931" id="myTags">
+			</ul>
+		  
+        </div>
+        
+      </section>
+      <!-- Three -->
+      <section ccID="10037" id="three">
+        <div ccID="10067" class="container">
+          <h3 ccID="10102">Relaciones entre entidades </h3>
+          <!--<p>Ingrese las entidades relacionadas</p>
+									
+									<div class="row uniform">
+										<div class="6u 12u(xsmall)"><input type="text" name="txtEntidad" id="txtEntidad" placeholder="Ingrese entidad" /></div>
+										<div class="6u 12u(xsmall)"><input name="Button" type="button" class="special" value="Agregar" onClick="addEntidad()" /></div>
+									</div>
+									<div class="row uniform">
+										<div class="12u">
+										  <table border="1" id="tablaEntidades" name="tablaEntidades">
+										  	<tbody>
+											</tbody>
+										  </table>
+										</div>
+									</div>-->
+          <p ccID="10782"></p>
+          <p ccID="10801">Ingrese las relaciones entre las entidades y temas</p>
+          <div ccID="10870" class="row uniform">
+            <div ccID="10909" class="3u 12u(medium)">
+              <input ccID="10953" type="text" name="txtNodo1" id="txtNodo1" placeholder="Ingrese entidad 1" onKeyUp="validaFormato(1, this,1)" />
+              <img ccID="11087" name="imgNodo1" src="images/add.png" style="width:20px" onClick="upFormNodo();">
+              <div ccID="11188" id="suggesstion-box1"></div>
+            </div>
+            <div ccID="11255" class="3u 12u(medium)">
+              <input ccID="11299" type="text" name="txtRelacion" id="txtRelacion" placeholder="Ingrese relaci&oacute;n" onKeyUp="validaFormato(2, this, 0)" />
+              <img ccID="11446" src="images/add.png" style="width:20px" onClick="upFormRel();">
+              <div ccID="11530" id="sugRel"></div>
+            </div>
+            <div ccID="11587" class="3u 12u(medium)">
+              <input ccID="11631" type="text" name="txtNodo2" id="txtNodo2" placeholder="Ingrese entidad 2" onKeyUp="validaFormato(1, this, 2)" />
+              <img ccID="11766" src="images/add.png" style="width:20px" onClick="upFormNodo();">
+              <div ccID="11851" id="suggesstion-box2"></div>
+            </div>
+            <div ccID="11918" class="3u 12u(medium)">
+              <input ccID="11962" name="Button" type="button" class="special" value="Agregar" onClick="addRel()" />
+            </div>
+          </div>
+          <div ccID="12100" class="row uniform">
+            <div ccID="12139" class="12u">
+              <table ccID="12172" border="1" id="tablaRelacion">
+                <tbody ccID="12227">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p ccID="12334"></p>
+          <p ccID="12353"></p>
+          <div ccID="12372" class="row uniform" align="center">
+            <div ccID="12426" class="12u">
+              <p ccID="12459"></p>
+              <p ccID="12482"></p>
+              <input ccID="12505" name="Button" type="button" class="special" value="Guardar Información de evento" onClick="guardarHecho()" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+    <!-- Five -->
+    <!--
+							<section id="five">
+								<div class="container">
+									<h3>Elements</h3>
+
+									<section>
+										<h4>Text</h4>
+										<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
+										This is <sup>superscript</sup> text and this is <sub>subscript</sub> text.
+										This is <u>underlined</u> and this is code: <code>for (;;) { ... }</code>. Finally, <a href="#">this is a link</a>.</p>
+										<hr />
+										<header>
+											<h4>Heading with a Subtitle</h4>
+											<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
+										</header>
+										<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+										<header>
+											<h5>Heading with a Subtitle</h5>
+											<p>Lorem ipsum dolor sit amet nullam id egestas urna aliquam</p>
+										</header>
+										<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing blandit tempus accumsan.</p>
+										<hr />
+										<h2>Heading Level 2</h2>
+										<h3>Heading Level 3</h3>
+										<h4>Heading Level 4</h4>
+										<h5>Heading Level 5</h5>
+										<h6>Heading Level 6</h6>
+										<hr />
+										<h5>Blockquote</h5>
+										<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan faucibus. Vestibulum ante ipsum primis in faucibus lorem ipsum dolor sit amet nullam adipiscing eu felis.</blockquote>
+										<h5>Preformatted</h5>
+										<pre><code>i = 0;
+
+	while (!deck.isInOrder()) {
+	    print 'Iteration ' + i;
+	    deck.shuffle();
+	    i++;
+	}
+
+	print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
+									</section>
+
+									<section>
+										<h4>Lists</h4>
+										<div class="row">
+											<div class="6u 12u(xsmall)">
+												<h5>Unordered</h5>
+												<ul>
+													<li>Dolor pulvinar etiam magna etiam.</li>
+													<li>Sagittis adipiscing lorem eleifend.</li>
+													<li>Felis enim feugiat dolore viverra.</li>
+												</ul>
+												<h5>Alternate</h5>
+												<ul class="alt">
+													<li>Dolor pulvinar etiam magna etiam.</li>
+													<li>Sagittis adipiscing lorem eleifend.</li>
+													<li>Felis enim feugiat dolore viverra.</li>
+												</ul>
+											</div>
+											<div class="6u 12u(xsmall)">
+												<h5>Ordered</h5>
+												<ol>
+													<li>Dolor pulvinar etiam magna etiam.</li>
+													<li>Etiam vel felis at lorem sed viverra.</li>
+													<li>Felis enim feugiat dolore viverra.</li>
+													<li>Dolor pulvinar etiam magna etiam.</li>
+													<li>Etiam vel felis at lorem sed viverra.</li>
+													<li>Felis enim feugiat dolore viverra.</li>
+												</ol>
+												<h5>Icons</h5>
+												<ul class="icons">
+													<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+													<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+													<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+													<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+													<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+													<li><a href="#" class="icon fa-tumblr"><span class="label">Tumblr</span></a></li>
+												</ul>
+											</div>
+										</div>
+										<h5>Actions</h5>
+										<ul class="actions">
+											<li><a href="#" class="button special">Default</a></li>
+											<li><a href="#" class="button">Default</a></li>
+											<li><a href="#" class="button alt">Default</a></li>
+										</ul>
+										<ul class="actions small">
+											<li><a href="#" class="button special small">Small</a></li>
+											<li><a href="#" class="button small">Small</a></li>
+											<li><a href="#" class="button alt small">Small</a></li>
+										</ul>
+										<div class="row">
+											<div class="3u 6u(medium) 12u$(xsmall)">
+												<ul class="actions vertical">
+													<li><a href="#" class="button special">Default</a></li>
+													<li><a href="#" class="button">Default</a></li>
+													<li><a href="#" class="button alt">Default</a></li>
+												</ul>
+											</div>
+											<div class="3u 6u$(medium) 12u$(xsmall)">
+												<ul class="actions vertical small">
+													<li><a href="#" class="button special small">Small</a></li>
+													<li><a href="#" class="button small">Small</a></li>
+													<li><a href="#" class="button alt small">Small</a></li>
+												</ul>
+											</div>
+											<div class="3u 6u(medium) 12u$(xsmall)">
+												<ul class="actions vertical">
+													<li><a href="#" class="button special fit">Default</a></li>
+													<li><a href="#" class="button fit">Default</a></li>
+													<li><a href="#" class="button alt fit">Default</a></li>
+												</ul>
+											</div>
+											<div class="3u 6u$(medium) 12u$(xsmall)">
+												<ul class="actions vertical small">
+													<li><a href="#" class="button special small fit">Small</a></li>
+													<li><a href="#" class="button small fit">Small</a></li>
+													<li><a href="#" class="button alt small fit">Small</a></li>
+												</ul>
+											</div>
+										</div>
+									</section>
+
+									<section>
+										<h4>Table</h4>
+										<h5>Default</h5>
+										<div class="table-wrapper">
+											<table>
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Description</th>
+														<th>Price</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Item One</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Two</td>
+														<td>Vis ac commodo adipiscing arcu aliquet.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Three</td>
+														<td> Morbi faucibus arcu accumsan lorem.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Four</td>
+														<td>Vitae integer tempus condimentum.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Five</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="2"></td>
+														<td>100.00</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+
+										<h5>Alternate</h5>
+										<div class="table-wrapper">
+											<table class="alt">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Description</th>
+														<th>Price</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Item One</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Two</td>
+														<td>Vis ac commodo adipiscing arcu aliquet.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Three</td>
+														<td> Morbi faucibus arcu accumsan lorem.</td>
+														<td>29.99</td>
+													</tr>
+													<tr>
+														<td>Item Four</td>
+														<td>Vitae integer tempus condimentum.</td>
+														<td>19.99</td>
+													</tr>
+													<tr>
+														<td>Item Five</td>
+														<td>Ante turpis integer aliquet porttitor.</td>
+														<td>29.99</td>
+													</tr>
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="2"></td>
+														<td>100.00</td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									</section>
+
+									<section>
+										<h4>Buttons</h4>
+										<ul class="actions">
+											<li><a href="#" class="button special">Special</a></li>
+											<li><a href="#" class="button">Default</a></li>
+											<li><a href="#" class="button alt">Alternate</a></li>
+										</ul>
+										<ul class="actions">
+											<li><a href="#" class="button special big">Big</a></li>
+											<li><a href="#" class="button">Default</a></li>
+											<li><a href="#" class="button alt small">Small</a></li>
+										</ul>
+										<ul class="actions fit">
+											<li><a href="#" class="button special fit">Fit</a></li>
+											<li><a href="#" class="button fit">Fit</a></li>
+											<li><a href="#" class="button alt fit">Fit</a></li>
+										</ul>
+										<ul class="actions fit small">
+											<li><a href="#" class="button special fit small">Fit + Small</a></li>
+											<li><a href="#" class="button fit small">Fit + Small</a></li>
+											<li><a href="#" class="button alt fit small">Fit + Small</a></li>
+										</ul>
+										<ul class="actions">
+											<li><a href="#" class="button special icon fa-download">Icon</a></li>
+											<li><a href="#" class="button icon fa-download">Icon</a></li>
+											<li><a href="#" class="button alt icon fa-check">Icon</a></li>
+										</ul>
+										<ul class="actions">
+											<li><span class="button special disabled">Special</span></li>
+											<li><span class="button disabled">Default</span></li>
+											<li><span class="button alt disabled">Alternate</span></li>
+										</ul>
+									</section>
+
+									<section>
+										<h4>Form</h4>
+										<form method="post" action="#">
+											<div class="row uniform">
+												<div class="6u 12u(xsmall)">
+													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
+												</div>
+												<div class="6u 12u(xsmall)">
+													<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+												</div>
+											</div>
+											<div class="row uniform">
+												<div class="12u">
+													<div class="select-wrapper">
+														<select name="demo-category" id="demo-category">
+															<option value="">- Category -</option>
+															<option value="1">Manufacturing</option>
+															<option value="1">Shipping</option>
+															<option value="1">Administration</option>
+															<option value="1">Human Resources</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<div class="row uniform">
+												<div class="4u 12u(medium)">
+													<input type="radio" id="demo-priority-low" name="demo-priority" checked>
+													<label for="demo-priority-low">Low Priority</label>
+												</div>
+												<div class="4u 12u(medium)">
+													<input type="radio" id="demo-priority-normal" name="demo-priority">
+													<label for="demo-priority-normal">Normal Priority</label>
+												</div>
+												<div class="4u 12u(medium)">
+													<input type="radio" id="demo-priority-high" name="demo-priority">
+													<label for="demo-priority-high">High Priority</label>
+												</div>
+											</div>
+											<div class="row uniform">
+												<div class="6u 12u(medium)">
+													<input type="checkbox" id="demo-copy" name="demo-copy">
+													<label for="demo-copy">Email me a copy of this message</label>
+												</div>
+												<div class="6u 12u(medium)">
+													<input type="checkbox" id="demo-human" name="demo-human" checked>
+													<label for="demo-human">I am a human and not a robot</label>
+												</div>
+											</div>
+											<div class="row uniform">
+												<div class="12u">
+													<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+												</div>
+											</div>
+											<div class="row uniform">
+												<div class="12u">
+													<ul class="actions">
+														<li><input type="submit" value="Send Message" /></li>
+														<li><input type="reset" value="Reset" class="alt" /></li>
+													</ul>
+												</div>
+											</div>
+										</form>
+									</section>
+
+									<section>
+										<h4>Image</h4>
+										<h5>Fit</h5>
+										<span class="image fit"><img src="images/banner.jpg" alt="" /></span>
+										<div class="box alt">
+											<div class="row 50% uniform">
+												<div class="4u"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
+												<div class="4u"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
+												<div class="4u"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+											</div>
+											<div class="row 50% uniform">
+												<div class="4u"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
+												<div class="4u"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+												<div class="4u"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
+											</div>
+											<div class="row 50% uniform">
+												<div class="4u"><span class="image fit"><img src="images/pic03.jpg" alt="" /></span></div>
+												<div class="4u"><span class="image fit"><img src="images/pic01.jpg" alt="" /></span></div>
+												<div class="4u"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>
+											</div>
+										</div>
+										<h5>Left &amp; Right</h5>
+										<p><span class="image left"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
+										<p><span class="image right"><img src="images/avatar.jpg" alt="" /></span>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent.</p>
+									</section>
+
+								</div>
+							</section>
+						-->
+  </div>
+  <!-- Footer -->
+  <section ccID="29431" id="footer">
+    <div ccID="29458" class="container">
+      <ul ccID="29489" class="copyright">
+        <li ccID="29521">v0.1.0</li>
+        <!--<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>-->
+      </ul>
+    </div>
+  </section>
+</div>
+<div ccID="29660" id="formNodo" title="Formulario Nodo">
+  <div ccID="29707" class="container">
+    <form ccID="29736" id="formNodoN" method="post">
+      <h3 ccID="29779">Nuevo nodo</h3>
+      <div ccID="29806" class="select-wrapper">
+        <select ccID="29844" name="cbxNodo" id="cbxNodo" onChange="getInfoNodo(this)">
+          <option ccID="29921" value="" selected="selected">- Tipo de nodo -</option>
+          <?php
+								for($i=0;$i<count($tiposNodos);$i++){
+									if($i!=0){
+										echo ',
+										';
+									}
+									echo '<option value="'.$tiposNodos[$i][0].'" title="'.$tiposNodos[$i][4].'">'.$tiposNodos[$i][1].'</option>
+									';
+								}
+								?>
+        </select>
+      </div>
+      <table ccID="30308" border="1" id="tablaValNodos">
+      </table>
+      <div ccID="30369" align="center"> <br ccID="30390">
+        <br ccID="30404">
+        <input ccID="30418" name="btnNewNodo" type="button" class="special" id="btnNewNodo" onClick="saveNodo()" value="Guardar" />
+      </div>
+    </form>
+  </div>
+</div>
+<div ccID="30575" id="formRel" title="Formulario Relación">
+  <form ccID="30626" id="formRelN" method="post">
+    <div ccID="30666" class="container">
+      <h3 ccID="30697">Nueva relación</h3>
+      <table ccID="30729" border="1" id="tablaValRel">
+        <tr ccID="30774">
+          <td ccID="30790">Identificador:</td>
+          <td ccID="30825"><input ccID="30829" type="text" name="txtIdRel" id="txtIdRel" placeholder="Ingrese Identificador"/></td>
+        </tr>
+        <tr ccID="30945">
+          <td ccID="30961">Descripción:</td>
+          <td ccID="30995"><input ccID="30999" type="text" name="txtDescRel" id="txtDescRel" placeholder="Ingrese nombre"/></td>
+        </tr>
+      </table>
+      <div ccID="31126" align="center"> <br ccID="31147">
+        <br ccID="31161">
+        <input ccID="31175" name="btnSaveRel" type="button" class="special" id="btnSaveRel" value="Guardar" onClick="saveRelacion()"/>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- Scripts -->
+</body>
+</html>

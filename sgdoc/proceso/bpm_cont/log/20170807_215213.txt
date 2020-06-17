@@ -1,0 +1,589 @@
+INSERT INTO sgdp."SGDP_PROCESOS"(
+            "A_NOMBRE_PROCESO", 
+			"A_DESCRIPCION_PROCESO", 
+			"ID_MACRO_PROCESO", 
+            "B_VIGENTE", 
+			"B_CONFIDENCIAL" ,
+			"N_DIAS_HABILES_MAX_DURACION", 
+			"X_BPMN",
+			"ID_UNIDAD")
+			 VALUES ('Modificación PEF',
+			 'Modificación PEF', 
+			 3, 
+			 TRUE, 
+			 TRUE,
+			 9, 
+			 '<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.8.2">
+  <bpmn:collaboration id="Collaboration_11m3jiu">
+    <bpmn:extensionElements>
+      <camunda:properties>
+        <camunda:property name="plazo" value="1" />
+        <camunda:property name="etapa" value="1" />
+      </camunda:properties>
+    </bpmn:extensionElements>
+    <bpmn:participant id="Participant_15ponpg" name="Ingreso PEF" processRef="Process_1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="false">
+    <bpmn:laneSet>
+      <bpmn:lane id="Lane_17vntuw" name="Creador de PEF">
+        <bpmn:flowNodeRef>Task_1xb6kbt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1vmysns</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0xvbsnw</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0uy5qew</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_016r4y1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_1ymksrv</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_16k0l80" name="Validador de PEF">
+        <bpmn:flowNodeRef>Task_11hovgv</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1ivqbtu" name="Validador final de PEF">
+        <bpmn:flowNodeRef>Task_0h4zq2f</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:task id="Task_1xb6kbt" name="Modificar Focalización del PEF">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1rpmk7o</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_043k9ra</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_0nn9tec" sourceRef="StartEvent_1" targetRef="Task_0uy5qew" />
+    <bpmn:sequenceFlow id="SequenceFlow_0hsegxs" sourceRef="Task_0uy5qew" targetRef="Task_1ymksrv" />
+    <bpmn:sequenceFlow id="SequenceFlow_0qrqdnu" sourceRef="Task_016r4y1" targetRef="Task_11hovgv" />
+    <bpmn:sequenceFlow id="SequenceFlow_043k9ra" sourceRef="Task_1xb6kbt" targetRef="Task_0xvbsnw" />
+    <bpmn:sequenceFlow id="SequenceFlow_001ccx0" sourceRef="Task_0xvbsnw" targetRef="EndEvent_1vmysns" />
+    <bpmn:sequenceFlow id="SequenceFlow_0lacxpj" sourceRef="Task_1ymksrv" targetRef="Task_016r4y1" />
+    <bpmn:endEvent id="EndEvent_1vmysns">
+      <bpmn:incoming>SequenceFlow_001ccx0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0nn9tec</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1rpmk7o" sourceRef="Task_0h4zq2f" targetRef="Task_1xb6kbt" />
+    <bpmn:sequenceFlow id="SequenceFlow_0zoaghz" sourceRef="Task_11hovgv" targetRef="Task_0h4zq2f" />
+    <bpmn:task id="Task_0xvbsnw" name=" Crear acuerdos del comité de fiscalización">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_043k9ra</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_001ccx0</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_06qn22r">
+        <bpmn:targetRef>DataObjectReference_129x0qd</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataObjectReference id="DataObjectReference_129x0qd" name="Acta Comite" dataObjectRef="DataObject_0tpp5rt" />
+    <bpmn:dataObject id="DataObject_0tpp5rt" />
+    <bpmn:task id="Task_11hovgv" name="Validar Malla PEF">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0qrqdnu</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zoaghz</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_0h4zq2f" name="Aprobar Malla PEF">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="3" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0zoaghz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1rpmk7o</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_0uy5qew" name="Ingresar Acta de modificación del PEF">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="3" />
+          <camunda:property name="etapa" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0nn9tec</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0hsegxs</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_016r4y1" name="Modificar proceso, actividad y tarea del PEF">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0lacxpj</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0qrqdnu</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_1ymksrv" name="Modificar Introducción y análisis de PEF">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="plazo" value="1" />
+          <camunda:property name="etapa" value="1" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0hsegxs</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0lacxpj</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_11m3jiu">
+      <bpmndi:BPMNShape id="Participant_15ponpg_di" bpmnElement="Participant_15ponpg">
+        <dc:Bounds x="137" y="81" width="1225" height="586" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="207" y="233" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="180" y="269" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0uy5qew_di" bpmnElement="Task_0uy5qew">
+        <dc:Bounds x="304" y="211" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0nn9tec_di" bpmnElement="SequenceFlow_0nn9tec">
+        <di:waypoint xsi:type="dc:Point" x="243" y="251" />
+        <di:waypoint xsi:type="dc:Point" x="304" y="251" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="228.5" y="229.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0hsegxs_di" bpmnElement="SequenceFlow_0hsegxs">
+        <di:waypoint xsi:type="dc:Point" x="404" y="251" />
+        <di:waypoint xsi:type="dc:Point" x="469" y="251" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="391.5" y="229.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_016r4y1_di" bpmnElement="Task_016r4y1">
+        <dc:Bounds x="654" y="211" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_11hovgv_di" bpmnElement="Task_11hovgv">
+        <dc:Bounds x="733" y="409" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0qrqdnu_di" bpmnElement="SequenceFlow_0qrqdnu">
+        <di:waypoint xsi:type="dc:Point" x="754" y="251" />
+        <di:waypoint xsi:type="dc:Point" x="783" y="251" />
+        <di:waypoint xsi:type="dc:Point" x="783" y="409" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="723.5" y="229.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_1xb6kbt_di" bpmnElement="Task_1xb6kbt">
+        <dc:Bounds x="944" y="211" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0xvbsnw_di" bpmnElement="Task_0xvbsnw">
+        <dc:Bounds x="1102" y="211" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_043k9ra_di" bpmnElement="SequenceFlow_043k9ra">
+        <di:waypoint xsi:type="dc:Point" x="1044" y="251" />
+        <di:waypoint xsi:type="dc:Point" x="1102" y="251" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1028" y="229.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1vmysns_di" bpmnElement="EndEvent_1vmysns">
+        <dc:Bounds x="1288.0187561697926" y="233" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1306.0187561697926" y="272" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_001ccx0_di" bpmnElement="SequenceFlow_001ccx0">
+        <di:waypoint xsi:type="dc:Point" x="1202" y="251" />
+        <di:waypoint xsi:type="dc:Point" x="1288" y="251" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1200" y="229.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_129x0qd_di" bpmnElement="DataObjectReference_129x0qd">
+        <dc:Bounds x="1134" y="110" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1160" y="178" width="59" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_06qn22r_di" bpmnElement="DataOutputAssociation_06qn22r">
+        <di:waypoint xsi:type="dc:Point" x="1151" y="211" />
+        <di:waypoint xsi:type="dc:Point" x="1150" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_1ymksrv_di" bpmnElement="Task_1ymksrv">
+        <dc:Bounds x="469" y="211" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0lacxpj_di" bpmnElement="SequenceFlow_0lacxpj">
+        <di:waypoint xsi:type="dc:Point" x="569" y="251" />
+        <di:waypoint xsi:type="dc:Point" x="654" y="251" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="566.5" y="229.5" width="90" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_17vntuw_di" bpmnElement="Lane_17vntuw">
+        <dc:Bounds x="167" y="81" width="1195" height="303" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_16k0l80_di" bpmnElement="Lane_16k0l80">
+        <dc:Bounds x="167" y="384" width="1195" height="143" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1ivqbtu_di" bpmnElement="Lane_1ivqbtu">
+        <dc:Bounds x="167" y="527" width="1195" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0h4zq2f_di" bpmnElement="Task_0h4zq2f">
+        <dc:Bounds x="733" y="559" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zoaghz_di" bpmnElement="SequenceFlow_0zoaghz">
+        <di:waypoint xsi:type="dc:Point" x="783" y="489" />
+        <di:waypoint xsi:type="dc:Point" x="783" y="559" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="753" y="518" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1rpmk7o_di" bpmnElement="SequenceFlow_1rpmk7o">
+        <di:waypoint xsi:type="dc:Point" x="833" y="599" />
+        <di:waypoint xsi:type="dc:Point" x="905" y="599" />
+        <di:waypoint xsi:type="dc:Point" x="905" y="251" />
+        <di:waypoint xsi:type="dc:Point" x="944" y="251" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="875" y="419" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
+', 
+			 2) 
+			 RETURNING "ID_PROCESO"; 
+
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA")
+    	VALUES (
+			'Modificar Focalización del PEF',
+			'Task_1xb6kbt',  
+			NULL, 
+			165, 
+			1, 
+            6,
+			TRUE, 
+			FALSE, 
+			1, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA")
+    	VALUES (
+			' Crear acuerdos del comité de fiscalización',
+			'Task_0xvbsnw',  
+			NULL, 
+			165, 
+			1, 
+            7,
+			TRUE, 
+			FALSE, 
+			1, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA")
+    	VALUES (
+			'Validar Malla PEF',
+			'Task_11hovgv',  
+			NULL, 
+			165, 
+			1, 
+            4,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA")
+    	VALUES (
+			'Aprobar Malla PEF',
+			'Task_0h4zq2f',  
+			NULL, 
+			165, 
+			1, 
+            5,
+			TRUE, 
+			FALSE, 
+			3, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA")
+    	VALUES (
+			'Ingresar Acta de modificación del PEF',
+			'Task_0uy5qew',  
+			NULL, 
+			165, 
+			3, 
+            1,
+			TRUE, 
+			FALSE, 
+			1, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA")
+    	VALUES (
+			'Modificar proceso, actividad y tarea del PEF',
+			'Task_016r4y1',  
+			NULL, 
+			165, 
+			1, 
+            3,
+			TRUE, 
+			FALSE, 
+			1, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE)
+			RETURNING "ID_TAREA";
+INSERT INTO sgdp."SGDP_TAREAS"(
+			"A_NOMBRE_TAREA", 
+			"ID_DIAGRAMA", 
+			"A_DESCRIPCION_TAREA", 
+			"ID_PROCESO", 
+            "N_DIAS_HABILES_MAX_DURACION", 
+			"N_ORDEN", 
+			"B_VIGENTE", 
+			"B_SOLO_INFORMAR", 
+            "ID_ETAPA", 
+			"B_OBLIGATORIA", 
+			"B_ES_ULTIMA_TAREA", 
+			"A_TIPO_DE_BIFURCACION", 
+            "B_PUEDE_VISAR_DOCUMENTOS", 
+			"B_PUEDE_APLICAR_FEA")
+    	VALUES (
+			'Modificar Introducción y análisis de PEF',
+			'Task_1ymksrv',  
+			NULL, 
+			165, 
+			1, 
+            2,
+			TRUE, 
+			FALSE, 
+			1, 
+            TRUE, 
+			FALSE, 
+			'', 
+            FALSE, 
+			FALSE)
+			RETURNING "ID_TAREA";
+
+
+INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
+			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
+			   , "B_CONFORMA_EXPEDIENTE"
+			   , "B_APLICA_VISACION"
+			   , "B_APLICA_FEA"
+			   , "B_ES_DOCUMENTO_CONDUCTOR")
+				VALUES (
+				'Acta Comite'
+				,FALSE
+				, FALSE
+				, FALSE
+				, FALSE) RETURNING "ID_TIPO_DE_DOCUMENTO"; 
+
+
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Creador de PEF') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Validador de PEF') RETURNING "ID_RESPONSABILIDAD";
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD"(
+             "A_NOMBRE_RESPONSABILIDAD")
+   			 VALUES ( 'Validador final de PEF') RETURNING "ID_RESPONSABILIDAD";
+
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				575
+				, 576);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				577
+				, 578);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				578
+				, 575);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				579
+				, 581);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				580
+				, 577);
+INSERT INTO sgdp."SGDP_REFERENCIAS_DE_TAREAS"(
+				"ID_TAREA"
+				, "ID_TAREA_SIGUIENTE")
+				VALUES (
+				581
+				, 580);
+
+INSERT INTO sgdp."SGDP_DOCUMENTOS_DE_SALIDA_DE_TAREAS"(
+									"ID_TAREA"
+									, "ID_TIPO_DE_DOCUMENTO"
+									, "N_ORDEN")
+							VALUES (
+							576
+							, 195
+							, 1);
+
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							163
+							, 575);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							163
+							, 576);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							163
+							, 579);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							163
+							, 580);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							163
+							, 581);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							164
+							, 577);
+INSERT INTO sgdp."SGDP_RESPONSABILIDAD_TAREA"(
+									"ID_RESPONSABILIDAD"
+									, "ID_TAREA")
+							VALUES (
+							165
+							, 578);
+

@@ -1,0 +1,518 @@
+<?php
+session_start();
+
+
+function getDatos($_div){
+	$idCache=date('i');
+	if(($idCache%5)!=0){
+		if(file_exists ('cache/getDatos.ch')){
+			$cache = file_get_contents('cache/getDatos.ch');
+			//return $cache;
+		}
+		
+	}
+	
+	$res=null;
+	include('connect.php');
+	$cond=null;
+	$contd=getTotalInOutDiv();
+	if($_div!=''){
+		$cond=', sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD"='.pg_escape_string($_div);
+	}
+	//obtener usuarios sin asignar
+
+	$sql='SELECT
+			t1."ID_USUARIO",
+			sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD",
+			(
+			SELECT COUNT
+				( sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_INSTANCIA_DE_TAREA_DE_ORIGEN" ) 
+			FROM
+				sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"
+				INNER JOIN sgdp."SGDP_INSTANCIAS_DE_TAREAS" ON sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_INSTANCIA_DE_TAREA_DE_ORIGEN" = sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_TAREA" 
+			WHERE
+				sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_ACCION_HISTORICO_INST_DE_TAREA" NOT IN ( 4, 1, 5, 7 ) 
+				AND sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_USUARIO_ORIGEN" = t1."ID_USUARIO" 
+			) AS tareas_salida,
+			(
+			SELECT COUNT
+				( sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_INSTANCIA_DE_TAREA" ) 
+			FROM
+				sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"
+				INNER JOIN sgdp."SGDP_INSTANCIAS_DE_TAREAS" ON sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_INSTANCIA_DE_TAREA" = sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_TAREA"
+				INNER JOIN sgdp."SGDP_TAREAS" ON sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_TAREA" = sgdp."SGDP_TAREAS"."ID_TAREA" 
+			WHERE
+				sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_USUARIO" = t1."ID_USUARIO" 
+				AND sgdp."SGDP_TAREAS"."B_ESPERAR_RESP" = false 
+			) AS tareas_bandeja 
+		FROM
+			sgdp."SGDP_USUARIOS_ROLES" AS t1
+			INNER JOIN sgdp."SGDP_UNIDADES" ON t1."ID_UNIDAD" = sgdp."SGDP_UNIDADES"."ID_UNIDAD" 
+		WHERE
+			t1."ID_USUARIO" NOT IN ( \'user1\', \'dfsgdp\', \'ibesgdp\', \'prtgadmin\', \'isaynsgdp\', \'user2\', \'user3\' ) 
+		GROUP BY
+			t1."ID_USUARIO",
+			sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD" 
+		ORDER BY
+			sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD" ASC,
+			tareas_salida DESC
+					';
+		
+	$temp1=strtotime(date('Y-m-d'));
+	
+	
+	$result=pg_query($dbconn, $sql);
+	$res='<table id="example" class="display">
+			<thead>
+			<tr>	
+				<th>Usuario</th>
+					<th>In x d&iacute;a</th>
+					<th>Out x d&iacute;a</th>
+					<th>Tasa In/Out</th>
+					<th tittle="Tiempo promedio de respuesta">t de respuesta (d&iacute;as x tarea)</th>
+					<th>En bandeja</th>
+					<th>&Aacute;rea</th>
+			</tr>
+			</thead>';
+	$contDiv=0;
+	$totDiv=0;
+	$div=null;
+	for($i=0;$i<pg_num_rows($result);$i++){	
+		$row = pg_fetch_array($result, $i);		
+		$temp2=strtotime(getFechaIni($row['ID_USUARIO'])); 
+		$diferencia= abs($temp1-$temp2);
+		$dias=floor($diferencia/60/60/24); 
+		
+		$totIn=$row['tareas_salida']+$row['tareas_bandeja'];
+		$inXdia=round(($totIn/$dias),3);
+		$outXdia=round(($row['tareas_salida']/$dias),3);
+		if($inXdia==0){
+			$tasa=0;
+		}else{
+			$tasa=round((($outXdia/$inXdia)*100),2);
+		}
+		
+		
+		$inXdia=round(($totIn/$dias),2);
+		$outXdia=round(($row['tareas_salida']/$dias),2);
+		$tresp=getTiempoRespPromedio($row['ID_USUARIO']);
+		$color=null;
+		$color2=null;
+		
+		switch (true) {
+			case ($tasa == 0):
+				$color='';
+				break;
+			case ($tasa >= 95):
+				$color='#7FD570';
+				break;
+			case ($tasa >= 85 && $tasa < 95):
+				$color='#A7E89C';
+				break;
+			case ($tasa >= 80 && $tasa < 85):
+				$color='#FFFEB0';
+				break;
+			case ($tasa >= 70 && $tasa < 80):
+				$color='#FFC489';
+				break;
+			default:
+				$color='#FFB0B0';
+		}
+		
+		switch (true) {
+			case ($tasa == 0):
+				$color2='';
+				break;
+			case ($tresp <= 1):
+				$color2='#7FD570';
+				break;
+			case ($tresp > 1 && $tresp <= 2):
+				$color2='#A7E89C';
+				break;
+			case ($tresp > 2 && $tresp <= 3):
+				$color2='#FFFEB0';
+				break;
+			case ($tresp > 3 && $tresp <= 5):
+				$color2='#FFC489';
+				break;
+			default:
+				$color2='#FFB0B0';
+		}
+		
+		$dVac=round(($row['tareas_bandeja']*$tresp),1);
+		
+		$res.='
+			  <tr>
+				<td><a href="det_nivel1.php?idDiv='.$row['A_CODIGO_UNIDAD'].'&tip=p" target="_blank">'.$row['ID_USUARIO'].'</a></td>
+				<td title="Total hist&oacute;rico: '.$totIn.'"><a href="det_nivel1.php?idDiv='.$row['A_CODIGO_UNIDAD'].'&tip=p" target="_blank">'.$inXdia.'</a></td>
+				<td title="Total hist&oacute;rico: '.$row['tareas_salida'].'"><a href="det_nivel1.php?idDiv='.$row['A_CODIGO_UNIDAD'].'&tip=f" target="_blank">'.$outXdia.'</a></td>
+				<td style="background:'.$color.'" >'.$tasa.'%</td>
+				<td title="'.$tresp.' d&iacute;as por tarea" style="background:'.$color2.'">'.$tresp.'</td>
+				<td title="Necesita '.$dVac.' d&iacute;as para vaciar bandeja"><a href="det_nivel1.php?idDiv='.$row['A_CODIGO_UNIDAD'].'&tip=p" target="_blank">'.$row['tareas_bandeja'].'</a></td>
+				<td><a href="det_nivel1.php?idDiv='.$row['A_CODIGO_UNIDAD'].'&tip=p" target="_blank">'.$row['A_CODIGO_UNIDAD'].'</a></td>
+			  </tr>
+			';
+		$totDiv+=$row['tareas_ejec'];
+	}
+	
+	$res.='<tfoot>
+			<tr>	
+				<th>Usuario</th>
+				<th>In x d&iacute;a</th>
+				<th>Out x d&iacute;a</th>
+				<th>Tasa In/Out</th>
+				<th tittle="Tiempo promedio de respuesta">t de respuesta (d&iacute;as x tarea)</th>
+				<th>En bandeja</th>
+				<th>&Aacute;rea</th>
+			</tr>
+			</tfoot>';
+	$fp = fopen("cache/getDatos.ch", "w");
+	fputs($fp, $res);
+	fclose($fp);
+	
+	return $res;	
+}
+
+function getFechaIni($_user){
+	include('connect.php');
+	$sql='SELECT
+			sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."D_FECHA_MOVIMIENTO",
+			sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_USUARIO_ORIGEN" 
+		FROM
+			sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS" 
+		WHERE
+			sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_USUARIO_ORIGEN" = \''.$_user.'\'
+		ORDER BY
+			sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."D_FECHA_MOVIMIENTO" ASC 
+			LIMIT 1';
+	$result=pg_query($dbconn, $sql);
+	if(pg_num_rows($result)<1){
+		return '2017-08-01';
+	}
+	$row = pg_fetch_array($result, 0);
+	return $row['D_FECHA_MOVIMIENTO'];
+
+}
+
+function getDatosTramo($_div, $_tipoT){
+	$res=null;
+	include('connect.php');
+	$cond=null;
+	$contd=getTotalInOutDiv();
+	if($_div!=''){
+		$cond=' AND sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD"=\''.pg_escape_string($_div).'\'';
+	}
+	$sql='SELECT DISTINCT
+			sgdp."SGDP_USUARIOS_ROLES"."ID_USUARIO",
+			sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD" 
+		FROM
+			sgdp."SGDP_USUARIOS_ROLES"
+			INNER JOIN sgdp."SGDP_UNIDADES" ON sgdp."SGDP_USUARIOS_ROLES"."ID_UNIDAD" = sgdp."SGDP_UNIDADES"."ID_UNIDAD" 
+		WHERE
+			sgdp."SGDP_USUARIOS_ROLES"."B_ACTIVO" = true
+			AND sgdp."SGDP_USUARIOS_ROLES"."ID_USUARIO" NOT IN ( \'user1\', \'dfsgdp\', \'user2\', \'user3\' ) 
+			'.$cond.'
+		ORDER BY
+			sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD" ASC,
+			sgdp."SGDP_USUARIOS_ROLES"."ID_USUARIO" ASC';
+		  //return $sql;
+	$tipoT=$_tipoT;
+	$result=pg_query($dbconn, $sql);
+	$res='<table id="example" class="display">
+			<thead>
+			<tr>	
+				<th>Usuario</th>
+				<th>0 a 5 d&iacute;as</th>
+				<th>6 a 10 d&iacute;as</th>
+				<th>11 a 20 d&iacute;as</th>
+				<th>21 a 40 d&iacute;as</th>
+				<th>41 a 80 d&iacute;as</th>
+				<th>81 a 999 d&iacute;as</th>
+				<th>Total</th>
+				<th>&Aacute;rea</th>
+			</tr>
+			</thead>';	
+	for($i=0;$i<pg_num_rows($result);$i++){	
+		$row = pg_fetch_array($result, $i);
+	
+		$res.='
+			  <tr>
+				<td>'.$row['ID_USUARIO'].'</td>
+				<td><a href="det_nivel2.php?idUs='.$row['ID_USUARIO'].'&tram1=0&tram2=5&tip='.$tipoT.'" target="_blank">'.getContTareasTramo($row['ID_USUARIO'], 0, 5, $tipoT).'</a></td>
+				<td><a href="det_nivel2.php?idUs='.$row['ID_USUARIO'].'&tram1=6&tram2=10&tip='.$tipoT.'" target="_blank">'.getContTareasTramo($row['ID_USUARIO'], 6, 10, $tipoT).'</a></td>
+				<td><a href="det_nivel2.php?idUs='.$row['ID_USUARIO'].'&tram1=11&tram2=20&tip='.$tipoT.'" target="_blank">'.getContTareasTramo($row['ID_USUARIO'], 11, 20, $tipoT).'</a></td>
+				<td><a href="det_nivel2.php?idUs='.$row['ID_USUARIO'].'&tram1=21&tram2=40&tip='.$tipoT.'" target="_blank">'.getContTareasTramo($row['ID_USUARIO'], 21, 40, $tipoT).'</a></td>
+				<td><a href="det_nivel2.php?idUs='.$row['ID_USUARIO'].'&tram1=41&tram2=80&tip='.$tipoT.'" target="_blank">'.getContTareasTramo($row['ID_USUARIO'], 41, 80, $tipoT).'</a></td>
+				<td><a href="det_nivel2.php?idUs='.$row['ID_USUARIO'].'&tram1=81&tram2=999&tip='.$tipoT.'" target="_blank">'.getContTareasTramo($row['ID_USUARIO'], 81, 999, $tipoT).'</a></td>
+				<td><a href="det_nivel2.php?idUs='.$row['ID_USUARIO'].'&tram1=0&tram2=999&tip='.$tipoT.'" target="_blank">'.getContTareasTramo($row['ID_USUARIO'], 0, 999, $tipoT).'</a></td>
+				<td>'.$row['A_CODIGO_UNIDAD'].'</td>
+			  </tr>
+			';
+	}
+	
+	$res.='<tfoot>
+			<tr>	
+				<th>Usuario</th>
+				<th>0 a 5 d&iacute;as</th>
+				<th>6 a 10 d&iacute;as</th>
+				<th>11 a 20 d&iacute;as</th>
+				<th>21 a 40 d&iacute;as</th>
+				<th>41 a 80 d&iacute;as</th>
+				<th>81 a 999 d&iacute;as</th>
+				<th>Total</th>
+				<th>&Aacute;rea</th>
+			</tr>
+			</tfoot>';
+	
+	return $res;
+
+}
+
+function getContTareasTramo($_user, $_tramIni, $_tramFin, $_tipoT){
+	include('connect.php');
+	$fHoy=date('Y-m-d');
+	$cont=null;
+	if($_tipoT=='p'){
+		$sql='SELECT
+					count(
+					sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_INSTANCIA_DE_TAREA"
+					)
+				FROM
+					sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"
+					INNER JOIN sgdp."SGDP_INSTANCIAS_DE_TAREAS" ON sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_INSTANCIA_DE_TAREA" = sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_TAREA"
+					INNER JOIN sgdp."SGDP_ESTADOS_DE_TAREAS" ON sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_ESTADO_DE_TAREA" = sgdp."SGDP_ESTADOS_DE_TAREAS"."ID_ESTADO_DE_TAREA" 
+				WHERE
+					sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_USUARIO" = \''.$_user.'\' 
+					AND (EXTRACT (
+						DAY 
+				FROM
+					age( date(\''.$fHoy.'\'),"SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_ASIGNACION" )) BETWEEN '.$_tramIni.' AND '.$_tramFin.')';
+	}elseif($_tipoT=='f'){
+		$sql='SELECT COUNT
+					( sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_INSTANCIA_DE_TAREA_DE_ORIGEN" ) 
+				FROM
+					sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"
+					INNER JOIN sgdp."SGDP_INSTANCIAS_DE_TAREAS" ON sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_INSTANCIA_DE_TAREA_DE_ORIGEN" = sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_TAREA" 
+				WHERE
+					sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_ACCION_HISTORICO_INST_DE_TAREA" NOT IN ( 4, 1, 5, 7 ) 
+					AND sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_USUARIO_ORIGEN" =  \''.$_user.'\' 
+					AND (EXTRACT (
+						DAY 
+				FROM
+					age( "SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_ASIGNACION" , "SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_INICIO" )) BETWEEN '.$_tramIni.' AND '.$_tramFin.')';
+	
+	}
+	
+	$result=pg_query($dbconn, $sql);
+	
+	for($i=0;$i<pg_num_rows($result);$i++){	
+		$row = pg_fetch_array($result, $i);
+		
+		$cont=$row['count'];
+	}
+	
+	return $cont;
+
+}
+
+function getDetTramo($_user, $_tramIni, $_tramFin, $_tipoT){
+	include('connect.php');
+	$cont=$colFF=null;
+	if($_user=='all'){
+		$where='';
+	}elseif($_tipoT=='p'){
+		$where='sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_USUARIO" = \''.$_user.'\' 
+					AND';
+	}else{
+		$where='sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_USUARIO_ORIGEN" =  \''.$_user.'\' 
+					AND';
+	}
+	
+	if($_tipoT=='p'){
+		$sql='SELECT
+					sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_INSTANCIA_DE_TAREA",
+					sgdp."SGDP_PROCESOS"."A_NOMBRE_PROCESO",
+					sgdp."SGDP_TAREAS"."A_NOMBRE_TAREA",
+					sgdp."SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_ASIGNACION",
+					sgdp."SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_VENCIMIENTO_USUARIO",
+					sgdp."SGDP_INSTANCIAS_DE_PROCESOS"."A_NOMBRE_EXPEDIENTE",
+					sgdp."SGDP_USUARIOS_ROLES"."ID_USUARIO",
+					sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD" 
+				FROM
+					sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"
+					INNER JOIN sgdp."SGDP_INSTANCIAS_DE_TAREAS" ON sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_INSTANCIA_DE_TAREA" = sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_TAREA"
+					INNER JOIN sgdp."SGDP_TAREAS" ON sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_TAREA" = sgdp."SGDP_TAREAS"."ID_TAREA"
+					INNER JOIN sgdp."SGDP_PROCESOS" ON sgdp."SGDP_TAREAS"."ID_PROCESO" = sgdp."SGDP_PROCESOS"."ID_PROCESO"
+					INNER JOIN sgdp."SGDP_INSTANCIAS_DE_PROCESOS" ON sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_PROCESO" = sgdp."SGDP_INSTANCIAS_DE_PROCESOS"."ID_INSTANCIA_DE_PROCESO"
+					INNER JOIN sgdp."SGDP_USUARIOS_ROLES" ON sgdp."SGDP_USUARIOS_ASIGNADOS_A_TAREAS"."ID_USUARIO" = sgdp."SGDP_USUARIOS_ROLES"."ID_USUARIO"
+					INNER JOIN sgdp."SGDP_UNIDADES" ON sgdp."SGDP_USUARIOS_ROLES"."ID_UNIDAD" = sgdp."SGDP_UNIDADES"."ID_UNIDAD" 
+				WHERE
+					'.$where.'
+					 (EXTRACT (
+						days 
+				FROM
+					( "SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_ASIGNACION" - "SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_INICIO" )) BETWEEN '.$_tramIni.' AND '.$_tramFin.')
+					AND sgdp."SGDP_TAREAS"."B_ESPERAR_RESP" = false ';
+	}elseif($_tipoT=='f'){
+		$sql='SELECT
+					sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_INSTANCIA_DE_TAREA_DE_ORIGEN",
+					sgdp."SGDP_INSTANCIAS_DE_PROCESOS"."A_NOMBRE_EXPEDIENTE",
+					sgdp."SGDP_PROCESOS"."A_NOMBRE_PROCESO",
+					sgdp."SGDP_TAREAS"."A_NOMBRE_TAREA",
+					sgdp."SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_ASIGNACION",
+					sgdp."SGDP_USUARIOS_ROLES"."ID_USUARIO",
+					sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD" ,
+					sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."D_FECHA_MOVIMIENTO"
+				FROM
+					sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"
+					INNER JOIN sgdp."SGDP_INSTANCIAS_DE_TAREAS" ON sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_INSTANCIA_DE_TAREA_DE_ORIGEN" = sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_TAREA"
+					INNER JOIN sgdp."SGDP_INSTANCIAS_DE_PROCESOS" ON sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_PROCESO" = sgdp."SGDP_INSTANCIAS_DE_PROCESOS"."ID_INSTANCIA_DE_PROCESO"
+					INNER JOIN sgdp."SGDP_PROCESOS" ON sgdp."SGDP_INSTANCIAS_DE_PROCESOS"."ID_PROCESO" = sgdp."SGDP_PROCESOS"."ID_PROCESO"
+					INNER JOIN sgdp."SGDP_TAREAS" ON sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_TAREA" = sgdp."SGDP_TAREAS"."ID_TAREA"
+					INNER JOIN sgdp."SGDP_USUARIOS_ROLES" ON sgdp."SGDP_USUARIOS_ROLES"."ID_USUARIO" = sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_USUARIO_ORIGEN"
+					INNER JOIN sgdp."SGDP_UNIDADES" ON sgdp."SGDP_USUARIOS_ROLES"."ID_UNIDAD" = sgdp."SGDP_UNIDADES"."ID_UNIDAD" 
+				WHERE
+					sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_ACCION_HISTORICO_INST_DE_TAREA" NOT IN ( 4, 1, 5, 7 ) AND 					
+					'.$where.'
+					 (EXTRACT (
+						days 
+				FROM
+					( "SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_ASIGNACION" - "SGDP_INSTANCIAS_DE_TAREAS"."D_FECHA_INICIO" )) BETWEEN '.$_tramIni.' AND '.$_tramFin.')';
+					
+		$colFF='<th>Fecha Fin</th>';
+	}
+	$det='<table id="example" class="display">
+			<thead>
+			<tr>	
+				<th>Usuario</th>
+				<th>Expediente</th>
+				<th>Subproceso</th>
+				<th>Tarea</th>
+				<th>Fecha Asignaci&oacute;n</th>
+				'.$colFF.'
+				<th>&Aacute;rea</th>
+			</tr>
+			</thead>';
+	$result=pg_query($dbconn, $sql);
+	for($i=0;$i<pg_num_rows($result);$i++){	
+		$row = pg_fetch_array($result, $i);
+		$fechaFin=null;
+		
+		if($row['D_FECHA_MOVIMIENTO']!=''){
+			$fechaFin='<td>'.$row['D_FECHA_MOVIMIENTO'].'</td>';
+		}
+		$det.='
+			  <tr>
+				<td>'.$row['ID_USUARIO'].'</td>
+				<td>'.$row['A_NOMBRE_EXPEDIENTE'].'</td>
+				<td>'.$row['A_NOMBRE_PROCESO'].'</td>
+				<td>'.$row['A_NOMBRE_TAREA'].'</td>
+				<td>'.$row['D_FECHA_ASIGNACION'].'</td>
+				'.$fechaFin.'
+				<td>'.$row['A_CODIGO_UNIDAD'].'</td>
+			  </tr>
+			';
+	}
+	
+	$det.='<tfoot>
+			<tr>	
+				<th>Usuario</th>
+				<th>Expediente</th>
+				<th>Subproceso</th>
+				<th>Tarea</th>
+				<th>Fecha Asignaci&oacute;n</th>
+				'.$colFF.'
+				<th>&Aacute;rea</th>
+			</tr>
+			</tfoot>';
+
+	return $det;
+}
+
+function getTotalInOutDiv(){
+	include('connect.php');
+	$contDiv=null;
+	$sql='SELECT
+			t2."A_CODIGO_UNIDAD",
+			Count(sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_HISTORICO_DE_INST_DE_TAREA") AS contOutdiv,
+			(SELECT
+				Count(sgdp."SGDP_HISTORICO_USUARIOS_ASIGNADOS_A_TAREAS"."ID_HISTORICO_DE_INST_DE_TAREA") AS tareas_ejec
+				FROM
+				sgdp."SGDP_HISTORICO_USUARIOS_ASIGNADOS_A_TAREAS"
+				LEFT JOIN sgdp."SGDP_USUARIOS_ROLES" AS t1 ON sgdp."SGDP_HISTORICO_USUARIOS_ASIGNADOS_A_TAREAS"."ID_USUARIO" = t1."ID_USUARIO"
+				INNER JOIN sgdp."SGDP_UNIDADES" ON t1."ID_UNIDAD" = sgdp."SGDP_UNIDADES"."ID_UNIDAD"
+				WHERE
+				t1."ID_USUARIO" NOT IN (\'user1\', \'dfsgdp\', \'user2\', \'user3\') AND
+				sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD" = t2."A_CODIGO_UNIDAD"
+				GROUP BY
+				sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD"
+				ORDER BY
+				sgdp."SGDP_UNIDADES"."A_CODIGO_UNIDAD" ASC,
+				tareas_ejec DESC
+				) as tarIn
+			FROM
+			sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"
+			INNER JOIN sgdp."SGDP_INSTANCIAS_DE_TAREAS" ON sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_INSTANCIA_DE_TAREA_DE_ORIGEN" = sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_TAREA"
+			INNER JOIN sgdp."SGDP_USUARIOS_ROLES" ON sgdp."SGDP_USUARIOS_ROLES"."ID_USUARIO" = sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_USUARIO_ORIGEN"
+			INNER JOIN sgdp."SGDP_UNIDADES" AS t2 ON sgdp."SGDP_USUARIOS_ROLES"."ID_UNIDAD" = t2."ID_UNIDAD"
+			WHERE
+			sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_ESTADO_DE_TAREA" = 3 AND
+			sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_ACCION_HISTORICO_INST_DE_TAREA" = 3
+			GROUP BY
+			t2."A_CODIGO_UNIDAD"';
+	$result=pg_query($dbconn, $sql);
+	for($i=0;$i<pg_num_rows($result);$i++){	
+		$row = pg_fetch_array($result, $i);
+		$contDiv[$row['A_CODIGO_UNIDAD']]=array($row['tarin'],$row['contoutdiv']);
+	}
+	
+	return $contDiv;
+
+}
+
+function getTiempoRespPromedio($_idUser){
+
+	include('connect.php');
+	$tProm=null;
+	$sql='SELECT
+			ht1."ID_USUARIO_ORIGEN",
+			AVG (
+				extract(day from (
+					ht1."D_FECHA_MOVIMIENTO" - (
+					SELECT
+						sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."D_FECHA_MOVIMIENTO" 
+					FROM
+						sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS" 
+					WHERE
+						sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_INSTANCIA_DE_TAREA_DESTINO" = ht1."ID_INSTANCIA_DE_TAREA_DE_ORIGEN" 
+						AND sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."D_FECHA_MOVIMIENTO" < ht1."D_FECHA_MOVIMIENTO" 
+						AND sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."ID_ACCION_HISTORICO_INST_DE_TAREA" NOT IN ( 4, 5, 7 ) 
+					ORDER BY
+						sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS"."D_FECHA_MOVIMIENTO" DESC 
+						LIMIT 1 
+					) 
+				) )
+			) AS resp_prom 
+		FROM
+			sgdp."SGDP_HISTORICO_DE_INST_DE_TAREAS" AS ht1
+			INNER JOIN sgdp."SGDP_INSTANCIAS_DE_TAREAS" ON ht1."ID_INSTANCIA_DE_TAREA_DE_ORIGEN" = sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_INSTANCIA_DE_TAREA"
+			INNER JOIN sgdp."SGDP_TAREAS" ON sgdp."SGDP_INSTANCIAS_DE_TAREAS"."ID_TAREA" = sgdp."SGDP_TAREAS"."ID_TAREA"
+		WHERE
+			ht1."ID_USUARIO_ORIGEN" = \''.$_idUser.'\' 
+			AND ht1."ID_ACCION_HISTORICO_INST_DE_TAREA" NOT IN ( 1, 4, 5, 7 ) AND
+			sgdp."SGDP_TAREAS"."B_ESPERAR_RESP" = false
+		GROUP BY
+			ht1."ID_USUARIO_ORIGEN"';
+	$result=pg_query($dbconn, $sql);
+	if(pg_num_rows($result)<1){
+		return 0;
+	}
+	$row = pg_fetch_array($result, 0);
+	$tProm=$row['resp_prom'];
+	
+	return round($tProm,2);
+
+}
+
+
+?>

@@ -1,0 +1,176 @@
+<?php 
+include_once('logica/l_roles_users.php');
+$usuarios=getUsers();
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Roles de usuario en procesos</title>
+ <link href="css/bootstrap.css" rel="stylesheet">
+  <!--<link href="css/main.css" rel="stylesheet">-->
+<script src="jquery/jquery.min.js.descarga"></script>
+<style>
+	body{
+	width:1200px; 
+	margin:0 auto;
+	overflow-x:hiden; 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top: 70px;}
+	select{width:180px;margin:0 0 10px 0;border:1px solid #ccc;padding:10px;border-radius:10px 0 0 10px;}
+	.clear{clear:both;text-align:center}
+	
+	input {margin:25px 1px 0 1px;border:1px solid #ccc;padding:10px;}
+	.izq{border-radius:10px 0 0 10px;}
+	.der{border-radius:0 10px 10px 0;}
+	.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
+	#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+ td,  th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+ tr:nth-child(even){background-color: #f2f2f2;}
+
+ tr:hover {background-color: #ddd;}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+<h1 align="center" class="style1">Roles de usuario en subprocesos</h1>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex6-collapse">
+        <span class="sr-only">Desplegar navegación</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">SGDP</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex6-collapse">
+      <ul class="nav navbar-nav">
+        <li ><a href="index.php">Carga de procesos</a></li>
+        <li><a href="asig_user.php">Asignar usuarios a roles</a></li>
+        <li class="active"><a href="roles_user.php">Reporte roles por usuario</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+
+<div id="divUser">
+
+<table cellspacing="1" id="tablaDatos" >
+    <tr>
+      <td><div align="center"><span class="style1">Usuario:</span></div></td>
+      <td ><select name="idUser" id="idUser" style="width:250px" require>
+          <option selected>Seleccione un usuario...</option>
+          <?php 
+					echo $usuarios;
+					 ?>
+        </select>
+      </td>
+    </tr>
+  </table>
+</div>
+<form action="logica/l_roles_users.php" method="post" id="formulario" enctype="multipart/form-data">
+  
+  <p class="clear">
+  <div id="rolesUser" style="display:none">
+  </div>
+ 
+  <input name="btnExpUserRol" type="submit" class="submit" id="btnExpUserRol" value="Exportar">
+  </p>
+  <?php if(isset($_SESSION['resultado'])){
+			echo $_SESSION['resultado'];
+			unset($_SESSION['resultado']);
+		
+		}?>
+</form>
+<div id="divResult" style="width:1200px" > </div>
+<p>
+  <script type="text/javascript">
+	   
+	   //cargar usuarios segun roles
+	   $(document).on('change', '#idUser', function() {
+	   
+			var dato = $( "#idUser" ).val();
+			//$('#rolesUser').hide(); 
+			//carga los datos de los usuarios en sus roles y procesos
+			 $.post("logica/l_roles_users.php", { func: "getRoles", user: dato},
+				function(data){
+					//alert(data);
+					$('#rolesUser').html(data);
+					 $('#rolesUser').show(); 
+				});	
+	   });
+	  
+	
+	$().ready(function() 
+	{  	
+	 
+		$('.submit').click(function() { 
+			
+			/*
+			var conf = confirm('Se asignarán todos los usuarios a los roles. ¿Desea continuar?');
+			if(!conf){
+				return false;	
+			}				
+			//function loadDoc() {
+			  var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				  document.getElementById("demo").innerHTML = this.responseText;
+				}
+			  };
+			  
+			  xhttp.open("POST", "logica/l_asig_users.php", false);
+			  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			  xhttp.send("func=getRolesFree&rol=105-32");
+			  alert(xhttp.responseText);*/
+			
+			 /*
+			  var url = "logica/l_roles_users.php";
+				$.ajax({                        
+				   type: "POST",                 
+				   url: url,                     
+				   data: $("#formulario").serialize(), 
+				   success: function(data)             
+				   {
+					 $('#divResult').html(data);               
+				   }
+			   });
+			  
+			//}*/
+			
+			return true;
+		});
+		
+		
+		
+		
+		
+	}); 
+	</script>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp; </p>
+</body>
+</html>
