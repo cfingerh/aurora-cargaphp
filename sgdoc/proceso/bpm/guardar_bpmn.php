@@ -106,6 +106,8 @@ function guardarProceso($_proceso){
 		$confExp=strtolower(trim($_proceso['tareas'][$i]['prop']['expediente']));	
 		$distribuir=strtolower(trim($_proceso['tareas'][$i]['prop']['distribuir']));
 		$numAuto=strtolower(trim($_proceso['tareas'][$i]['prop']['numauto']));
+		$salNoConf=$_proceso['tareas'][$i]['salidasNoConformes'];
+
 		//print_r($caract);
 		
 		if($visa=='si' || $visa=='sí' || $visa=='true'){
@@ -222,10 +224,81 @@ function guardarProceso($_proceso){
 		$idTareaA=$row['ID_TAREA'];
 		$_SESSION['proceso']['tareas'][$i]['idBD']=$row['ID_TAREA'];
 		//$_SESSION['proceso']['tareas'][$i]['idBD']=$i;
+
+		/** Guardar Parmetros de tarea */
+
+		if(array_key_exists('0', $salNoConf)) {
+			foreach($salNoConf as $val) {
+
+				$valArr = (explode("|",$val));				
+
+				$esSNCTexto = $valArr[0];
+				$nombreParam = $valArr[1];
+				$esSNC = 'FALSE';				
+				
+				if(strtoupper($esSNCTexto)=='SI' ||  strtoupper($esSNCTexto)=='SÍ' || strtoupper($esSNCTexto)=='TRUE') {
+					$esSNC = 'TRUE';					
+				}				
+				
+				$sql2='INSERT INTO sgdp."SGDP_PARAMETRO_DE_TAREA" ( 
+					"A_NOMBRE_PARAM_TAREA","ID_TIPO_PARAMETRO_DE_TAREA","A_TITULO", "B_VIGENTE", "B_ES_SNC" )
+						VALUES
+							( \''.$nombreParam.'\', 6, NULL, true, \''.$esSNC.'\') RETURNING "ID_PARAM_TAREA";';
+
+				//print_r($sql2);
+				
+				$_SESSION['sql'].=$sql2.'</br>';
+
+				$resultInsertParamTarea=pg_query($dbconn, $sql2);
+				if(!$resultInsertParamTarea) {
+					$error=pg_last_error($dbconn) ;
+					pg_query($dbconn, 'ROLLBACK');
+					return 'Error al guardar parametro de tarea '.$val.' '.'" ['.$error.']' ;
+				}
+				$rowInsertParamTarea = pg_fetch_array($resultInsertParamTarea, 0);
+				$idParamTarea=$rowInsertParamTarea['ID_PARAM_TAREA'];
+
+				$sql2='INSERT INTO sgdp."SGDP_PARAMETRO_RELACION_TAREA" ( 
+					"ID_TAREA", "ID_PARAM_TAREA" )
+						VALUES
+							( '.$idTareaA.', 
+							 '.$idParamTarea.') RETURNING "ID_PARAM_TAREA";';
+				$resultInsertParamRelTarea=pg_query($dbconn, $sql2);
+				if(!$resultInsertParamRelTarea){
+					$error=pg_last_error($dbconn) ;
+					pg_query($dbconn, 'ROLLBACK');
+					return 'Error al guardar relacion parametro tarea '.$val.' '.'" ['.$error.']' ;
+				}
+				$rowInsertParamRelTarea = pg_fetch_array($resultInsertParamRelTarea, 0);
+				$idParamTarea=$rowInsertParamRelTarea['ID_PARAM_TAREA'];
+
+				$_SESSION['sql'].=$sql2.'</br>';
+
+				$sql2='INSERT INTO sgdp."SGDP_TEXTO_PARAMETRO_DE_TAREA" ( 
+					"ID_PARAM_TAREA", "A_TEXTO" )
+						VALUES
+							( '.$idParamTarea.',  
+							 \''.$val.'\') RETURNING "ID_TEXTO_PARAMETRO_DE_TAREA";';
+				$resultInsertTextoParamTarea=pg_query($dbconn, $sql2);
+				if(!$resultInsertTextoParamTarea) {
+					$error=pg_last_error($dbconn) ;
+					pg_query($dbconn, 'ROLLBACK');
+					return 'Error al guardar texto parametro tarea '.$val.' '.'" ['.$error.']' ;
+				}
+				$rowInsertTextoParamTarea = pg_fetch_array($resultInsertTextoParamTarea, 0);
+				$idTextoParamTarea=$rowInsertTextoParamTarea['ID_TEXTO_PARAMETRO_DE_TAREA'];
+
+				$_SESSION['sql'].=$sql2.'</br>';
+				
+
+			}
+
+			
+		}
 		
 		/**********Guardar los parametros de las tareas**********/		
 		/**/
-		foreach($parametrosT as $key=>$val){
+		/*foreach($parametrosT as $key=>$val){
 			$lineParam = preg_split('/\r\n|\r|\n/', $val);
 			$pTitulo=null;
 			for($p=0;$p<count($lineParam);$p++){
@@ -322,7 +395,7 @@ function guardarProceso($_proceso){
 					}
 				}		
 			}//fin for
-		}
+		}*/
 		/**********************************/
 	}
 	//return $sql;

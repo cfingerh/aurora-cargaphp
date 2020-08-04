@@ -138,7 +138,8 @@ function procesarArchivo($procesoXML, $_xmlProceso){
 					$tareas[$j]['tipo']=$key;
 					$tareas[$j]['docs']=getRelDocs($procesoXML['process'][$key][$i]['dataOutputAssociation']);
 					$tareas[$j]['prop']=getPropiedadesTarea($procesoXML['process'][$key][$i]);
-					$tareas[$j]['params']=getParamsTarea($procesoXML['process'][$key][$i]);
+					//$tareas[$j]['params']=getParamsTarea($procesoXML['process'][$key][$i]);
+					$tareas[$j]['salidasNoConformes']=getSalidasNoConformes($procesoXML['process'][$key][$i]);
 					//$duracion+=$tareas[$j]['prop']['plazo'];				
 					$j++;
 				}		
@@ -148,7 +149,8 @@ function procesarArchivo($procesoXML, $_xmlProceso){
 				$tareas[$j]['tipo']=$key;
 				$tareas[$j]['docs']=getRelDocs($procesoXML['process'][$key]['dataOutputAssociation']);	
 				$tareas[$j]['prop']=getPropiedadesTarea($procesoXML['process'][$key]);
-				$tareas[$j]['params']=getParamsTarea($procesoXML['process'][$key]);
+				//$tareas[$j]['params']=getParamsTarea($procesoXML['process'][$key]);
+				$tareas[$j]['salidasNoConformes']=getSalidasNoConformes($procesoXML['process'][$key][$i]);
 				//$duracion+=$tareas[$j]['prop']['plazo'];
 				$j++;
 			}
@@ -248,6 +250,12 @@ function getPropiedadesTarea($_tarea){
 
 }
 
+function getSalidasNoConformes($_tarea) {
+	$salidasNoConformesValue=null;
+	$salidasNoConformes=$_tarea['extensionElements']['inputOutput']['outputParameter']['list']['value'];	
+	return $salidasNoConformes;
+}
+
 function getParamsTarea($_tarea){
 	$prop=$nomPar=$map=null;
 	$propiedades=$_tarea['extensionElements']['inputOutput']['outputParameter'];
@@ -266,7 +274,6 @@ function getParamsTarea($_tarea){
 		
 	}/**/
 	return $prop;
-
 }
 
 function getPropiedadesDoc($_doc){
@@ -314,7 +321,7 @@ function tablaProceso($proceso){
 		<td>Par&aacute;metros</td>
 		<td>Tipo Reset</td>
 		<td>D&iacute;as reset</td>
-		<td>Alertas</td>
+		<td>Alertas</td>	
 		</tr>
 		';
 	for($i=0; $i<count($proceso['tareas']);$i++){
@@ -331,7 +338,8 @@ function tablaProceso($proceso){
 		$diasresteo=$proceso['tareas'][$i]['prop']['diasresteo'];
 		$roles=getRol($proceso['tareas'][$i]['id'],$proceso['roles'] );
 		$tipo=getTipoTarea($proceso['tareas'][$i]['id'],$proceso);
-		$parametrosT=$proceso['tareas'][$i]['params'];
+		//$parametrosT=$proceso['tareas'][$i]['params'];
+		$salNoConf=$proceso['tareas'][$i]['salidasNoConformes'];
 		//echo '<pre>';
 		//print_r($parametrosT);
 		//exit;
@@ -363,7 +371,13 @@ function tablaProceso($proceso){
 			}
 		}
 
-
+		//print_r($salNoConf);
+		
+		/*if(array_key_exists('0', $salNoConf)){
+			foreach($salNoConf as $val){
+				print_r($val);
+			}
+		}*/
 
 		
 		$tabla.='
@@ -380,10 +394,10 @@ function tablaProceso($proceso){
 			<td>'.$numera.'</td>
 			<td>'.$espera.'</td>
 			<td>'.$plazo.'</td>
-			<td>'.transformParam($parametrosT).'</td>
+			<td>'.$salNoConf.'</td>
 			<td>'.$tiporesteo.'</td>
             <td>'.$diasresteo.'</td>
-			<td>'.$adv.'</td>
+			<td>'.$adv.'</td>			
 			</tr>';
 	
 	}
