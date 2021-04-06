@@ -2,6 +2,12 @@
 	
 session_start();
 
+if ($_SESSION['proceso']==null)
+{
+	echo "POST vacio";
+	exit;
+}
+
 if(isset($_SESSION['proceso'])){
 	unset($_SESSION['ordenT']);
 	unset($_SESSION['excluidos']);
@@ -15,15 +21,14 @@ if(isset($_SESSION['proceso'])){
 	
 }
 
+setOrden($_SESSION['proceso']);
+$_SESSION['resultado']=  guardarProceso($_SESSION['proceso']);
 
 
 function guardarProceso($_proceso){
 	include('connect.php');
 	pg_query($dbconn, 'BEGIN');
 
-	
-
-	
 	//paso1: guardar nombre de proceso
 	
 	$sql = 'INSERT INTO sgdp."SGDP_PROCESOS"(
@@ -47,24 +52,38 @@ function guardarProceso($_proceso){
 			 \''.$_proceso['codProc'].'\') 
 			 RETURNING "ID_PROCESO"; ';
 	$_SESSION['sql'].=$sql.'</br></br>';
-    $result=pg_query($dbconn, $sql);
+    echo $sql;
+	echo "<br>";
+	echo "<br>";
+	$result=pg_query($dbconn, $sql);
+	echo "<br>";
+	echo "<br>";
+	echo "<br>";
 	if(!$result){
 		$error=pg_last_error($dbconn);
+		echo $error;
 		pg_query($dbconn, 'ROLLBACK');
 		return 'Error al guardar nombre de proceso '.$error;
 	}
 	$row = pg_fetch_array($result, 0);
 	$id_proceso=$row['ID_PROCESO'];
-
+	echo $id_proceso;
+	echo $id_proceso;
+	echo $id_proceso;
+	echo $id_proceso;
+	echo $id_proceso;
+	
 	//paso 1.0.1: deshabilitar el proceso antiguo vigente
 	$sql = 'UPDATE sgdp."SGDP_PROCESOS" SET 
 			"B_VIGENTE"=FALSE			   
 			WHERE "ID_PROCESO"!='.$id_proceso.' AND "A_CODIGO_PROCESO"=\''.$_proceso['codProc'].'\'' ;
 
 	$_SESSION['sql'].=$sql.'</br></br>';
+	echo $sql;
 	$result=pg_query($dbconn, $sql);
 	if(!$result){
 		$error=pg_last_error($dbconn);
+		echo $error;
 		pg_query($dbconn, 'ROLLBACK');
 		return 'Error al actualizar vigencia de proceso antiguo - '.$error;
 	}
@@ -80,17 +99,20 @@ function guardarProceso($_proceso){
 	
 //paso2: guardar tareas del proceso
 	for($i=0;$i<count($_proceso['tareas']);$i++){
-		
+		echo "1";
 		$nombreT=$_proceso['tareas'][$i]['name'];
+		echo "2";
 		$nombreT=ereg_replace('[^ A-Za-z0-9_-ñÑ]', '', $nombreT);
 		$idT=$_proceso['tareas'][$i]['id'];
+		echo "3";
 		
 		
 		$caract=getCaractTarea($_proceso['tareas'][$i]['id'], $_proceso);
-		
+		echo "4";
 		if($caract['fin']=='FALSE'){
 			$caract['fin']=getTipoFinTarea($_proceso['tareas'][$i]['id'], $_proceso);
 		}
+		
 		
 		$visa=strtolower(trim($_proceso['tareas'][$i]['prop']['visa']));
 		$fea=strtolower(trim($_proceso['tareas'][$i]['prop']['fea']));
@@ -101,14 +123,13 @@ function guardarProceso($_proceso){
 		$orden=$_SESSION['ordenT'][$_proceso['tareas'][$i]['id']];
 		$destinos_tarea[$_proceso['tareas'][$i]['id']]=getDestinos($_proceso['tareas'][$i]['id'], $_proceso);
 		$parametrosT=$_proceso['tareas'][$i]['params'];
-		$tiporesteo=strtolower(trim($_proceso['tareas'][$i]['prop']['tiporesteo']));
-        $diasresteo=strtolower(trim($_proceso['tareas'][$i]['prop']['diasresteo']));	
+		$tiporesteo='';//strtolower(trim($_proceso['tareas'][$i]['prop']['tiporesteo']));
+        $diasresteo=null;//strtolower(trim($_proceso['tareas'][$i]['prop']['diasresteo']));	
 		$confExp=strtolower(trim($_proceso['tareas'][$i]['prop']['expediente']));	
 		$distribuir=strtolower(trim($_proceso['tareas'][$i]['prop']['distribuir']));
 		$numAuto=strtolower(trim($_proceso['tareas'][$i]['prop']['numauto']));
 		$salNoConf=$_proceso['tareas'][$i]['salidasNoConformes'];
 
-		//print_r($caract);
 		
 		if($visa=='si' || $visa=='sí' || $visa=='true'){
 			$visa='TRUE';
@@ -214,9 +235,11 @@ function guardarProceso($_proceso){
 		
 		$_SESSION['sql'].=$sql.'</br>';
 		
+		echo $sql;
 		$result=pg_query($dbconn, $sql);
 		if(!$result){
 			$error = pg_last_error($dbconn);
+			echo $error;
 			pg_query($dbconn, 'ROLLBACK');
 			return 'Error al guardar tarea '.$nombreT.' - '.$error;
 		}
@@ -296,107 +319,6 @@ function guardarProceso($_proceso){
 			
 		}
 		
-		/**********Guardar los parametros de las tareas**********/		
-		/**/
-		/*foreach($parametrosT as $key=>$val){
-			$lineParam = preg_split('/\r\n|\r|\n/', $val);
-			$pTitulo=null;
-			for($p=0;$p<count($lineParam);$p++){
-				$aux= substr($lineParam[$p], 0, 2); 
-				
-				//0 preguntar ID de tipo de parametro
-				$idTipoP=$nomParam=$posN=null;
-				switch($aux){
-					case 'o)':
-						$idTipoP='1';
-						$posN=strpos($lineParam[$p], ':');
-						$nomParam=trim(substr($lineParam[$p], 2, $posN)); 
-						break;
-					case 's)':
-						$idTipoP='5';
-						$posN=strpos($lineParam[$p], ':');
-						$nomParam=trim(substr($lineParam[$p], 2, $posN));
-						break;
-					case 'c)':
-						$idTipoP='1';
-						$posN=strpos($lineParam[$p], ':');
-						$nomParam=trim(substr($lineParam[$p], 2, $posN));
-						break;
-					case 't)':
-						$idTipoP='1';
-						$posN=strpos($lineParam[$p], ':');
-						$nomParam=trim(substr($lineParam[$p], 2, $posN));
-						break;
-					default:
-						$pTitulo=$lineParam[$p];
-						$nomParam=null;
-						break;
-				}
-					
-				//si es titulo, salta a la siguiente linea para guardar parametros
-				if($nomParam==null){
-					//$_SESSION['sql'].=$lineParam[$p]. ' - nomParam Nulo</br>';
-					continue;
-				}
-				
-				//1 guardar parametros de tarea
-				
-				$sql2='INSERT INTO sgdp."SGDP_PARAMETRO_DE_TAREA" ( 
-				"A_NOMBRE_PARAM_TAREA", 
-				"ID_TIPO_PARAMETRO_DE_TAREA",
-				"A_TITULO" )
-					VALUES
-						( \''.$nomParam.'\', 
-						'.$idTipoP.',
-						\''.$pTitulo.'\') RETURNING "ID_PARAM_TAREA";
-									';
-				$_SESSION['sql'].=$sql2.'</br>';
-				
-				$result2=pg_query($dbconn, $sql2);
-				if(!$result2){
-					$error=pg_last_error($dbconn) ;
-					pg_query($dbconn, 'ROLLBACK');
-					return 'Error al guardar parametro '.$nomParam.' '.'" ['.$error.']' ;
-				}
-				$row2 = pg_fetch_array($result2, 0);
-				$idParam=$row2['ID_PARAM_TAREA'];
-				
-				//2 guardar relacion param-tarea				
-				$sql2='INSERT INTO sgdp."SGDP_PARAMETRO_RELACION_TAREA"(
-									"ID_TAREA", "ID_PARAM_TAREA")
-							VALUES ('.$idTareaA.', '.$idParam.');
-									';
-				$_SESSION['sql'].=$sql2.'</br>';
-				
-				$result2=pg_query($dbconn, $sql2);
-				if(!$result2){
-					$error=pg_last_error($dbconn) ;
-					pg_query($dbconn, 'ROLLBACK');
-					return 'Error al guardar relacion tarea-parametro '.$nomParam.'" ['.$error.']';
-				}
-				//3 guardar valores de param
-				$auxValParam=explode(';',substr($lineParam[$p], $posN+1)); 
-				
-				for($p2=0;$p2<count($auxValParam);$p2++){
-					$sql2='INSERT INTO sgdp."SGDP_TEXTO_PARAMETRO_DE_TAREA"(
-									"ID_PARAM_TAREA", 
-									"A_TEXTO")
-							VALUES ( 
-							'.$idParam.', 
-							\''.$auxValParam[$p2].'\');
-						';
-					$_SESSION['sql'].=$sql2.'</br>';
-					
-					$result2=pg_query($dbconn, $sql2);
-					if(!$result2){
-						$error=pg_last_error($dbconn) ;
-						pg_query($dbconn, 'ROLLBACK');
-						return 'Error al guardar valor del parametro "'.$auxValParam[$p].'" ['.$error.']' ;
-					}
-				}		
-			}//fin for
-		}*/
-		/**********************************/
 	}
 	//return $sql;
 	//print_r($_SESSION['proceso']['tareas']);
@@ -470,104 +392,13 @@ function guardarProceso($_proceso){
 			, '.$numAutoD.'
 			) RETURNING "ID_TIPO_DE_DOCUMENTO"; ';
 
-		//si no existe el archivo, lo inserta en la BD	
-		/*if($idDoc=='d'){
-			
-			if($visa=='si' || $visa=='sí' || $visa=='true'){
-				$visa='TRUE';
-			}else{
-				$visa='FALSE';
-			}
-			
-			if($fea=='si' || $fea=='sí' || $fea=='true'){
-				$fea='TRUE';
-			}else{
-				$fea='FALSE';
-			}
-		
-			if($expediente=='si' || $expediente=='sí' || $expediente=='true'){
-				$expediente='TRUE';
-			}else{
-				$expediente='FALSE';
-			}
-			
-			if($conductor=='si' || $conductor=='sí' || $conductor=='true'){
-				$conductor='TRUE';
-			}else{
-				$conductor='FALSE';
-			}
-
-			if($numAutoD=='si' || $numAutoD=='sí' || $numAutoD=='true'){
-				$numAutoD='TRUE';
-			}else{
-				$numAutoD='FALSE';
-			}
-		
-		
-			$sql='INSERT INTO sgdp."SGDP_TIPOS_DE_DOCUMENTOS"(
-			   "A_NOMBRE_DE_TIPO_DE_DOCUMENTO"
-			   , "B_CONFORMA_EXPEDIENTE"
-			   , "B_APLICA_VISACION"
-			   , "B_APLICA_FEA"
-			   , "B_ES_DOCUMENTO_CONDUCTOR"
-			   , "A_COD_TIPO_DOC"
-			   , "B_NUMERACION_AUTO")
-				VALUES (
-				\''.$nombreD.'\'
-				,'.$expediente.'
-				, '.$visa.'
-				, '.$fea.'
-				, '.$conductor.'
-				, \''.$codTipoDoc.'\'
-				, '.$numAutoD.'
-				) RETURNING "ID_TIPO_DE_DOCUMENTO"; ';
-			
-		}else{
-			//si existe, actualiza sus campos
-			if($visa=='si' || $visa=='sí' || $visa=='true'){
-				$visaP=' "B_APLICA_VISACION"=TRUE, ';
-			}
-			
-			if($fea=='si' || $fea=='sí' || $fea=='true'){
-				$feaP=' "B_APLICA_FEA"=TRUE, ';
-			}
-		
-			if($expediente=='si' || $expediente=='sí' || $expediente=='true'){
-				$expedienteP=' "B_CONFORMA_EXPEDIENTE"=TRUE, ';
-			}
-			
-			if($conductor=='si' || $conductor=='sí' || $conductor=='true'){
-				$conductorP='"B_ES_DOCUMENTO_CONDUCTOR"=TRUE ';
-			}else{
-				$conductorP='"B_ES_DOCUMENTO_CONDUCTOR"=FALSE ';
-			}
-			/**********NUMERACION AUTOMATICA DE DOCUMENTOS*********/
-			/*
-			if($numAutoD=='si' || $numAutoD=='sí' || $numAutoD=='true'){
-				$numAutoDP=', "B_NUMERACION_AUTO"=TRUE ';
-			}else{
-				//$numAutoDP=', "B_NUMERACION_AUTO"=FALSE ';
-			}
-
-			if($codTipoDoc!=''){
-				$codTipoDocP=', "A_COD_TIPO_DOC"= \''.$codTipoDoc.'\'';
-			}
-			
-			$sql='UPDATE sgdp."SGDP_TIPOS_DE_DOCUMENTOS" SET 
-			   '.$expedienteP.'
-			   '.$visaP.'
-			   '.$feaP.' 
-			   '.$conductorP.' 
-			   '.$numAutoDP.' 
-			   '.$codTipoDocP.' 			   
-			   WHERE "ID_TIPO_DE_DOCUMENTO"='.$idDoc.' RETURNING "ID_TIPO_DE_DOCUMENTO"; ';	
-			   
-			   	
-		}*/
+	
 		
 		$_SESSION['sql'].=$sql.'</br>';
 		
+		echo $sql;
 		$result=pg_query($dbconn, $sql);
+		echo pg_last_error($dbconn);
 		if(!$result){
 			$error= pg_last_error($dbconn);
 			$fp = fopen(date('Ymd_His')."_LOG.txt", "w");
@@ -594,7 +425,9 @@ function guardarProceso($_proceso){
              "A_NOMBRE_RESPONSABILIDAD")
    			 VALUES ( \''.$nombreR.'\') RETURNING "ID_RESPONSABILIDAD";';
 		
+		echo $sql;
 		$result=pg_query($dbconn, $sql);
+		echo pg_last_error($dbconn);
 		if(!$result){
 			$error=pg_last_error($dbconn);
 			pg_query($dbconn, 'ROLLBACK');
@@ -635,7 +468,9 @@ function guardarProceso($_proceso){
 				
 				$_SESSION['sql'].=$sql.'</br>';
 				
+				echo $sql;
 				$result=pg_query($dbconn, $sql);
+				echo pg_last_error($dbconn);
 				if(!$result){
 					pg_query($dbconn, 'ROLLBACK');
 					return 'Error al guardar relacion de '.$de.' a '.$a;
@@ -671,7 +506,9 @@ function guardarProceso($_proceso){
 							, '.$idDoct.'
 							, 1);';
 					$_SESSION['sql'].=$sql.'</br>';
+					echo $sql;
 					$result=pg_query($dbconn, $sql);
+					echo pg_last_error($dbconn);
 					if(!$result){
 						pg_query($dbconn, 'ROLLBACK');
 						return 'Error al guardar doc de salida tarea '.$idTarea.' doc '.$idDoct;
@@ -699,7 +536,9 @@ function guardarProceso($_proceso){
 							'.$idRol.'
 							, '.$idTarea.');';
 					$_SESSION['sql'].=$sql.'</br>';
+					echo $sql;
 					$result=pg_query($dbconn, $sql);
+					echo pg_last_error($dbconn);
 					if(!$result){
 						pg_query($dbconn, 'ROLLBACK');
 						return 'Error al guardar rol de tarea '.$idTarea.' rol '.$idRol;
@@ -992,6 +831,12 @@ function getRelDocs($array_docs){
 		$k++;
 	}
 	return $aux;
+}
+
+if (phpversion()[0]>=7){
+function ereg_replace($a,$b){
+	return preg_replace($a,'',$b,'');
+}
 }
 
 

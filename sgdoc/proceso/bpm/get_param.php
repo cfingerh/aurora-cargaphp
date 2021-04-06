@@ -26,8 +26,11 @@ function getProceso(){
 	$sql='SELECT "ID_MACRO_PROCESO", "A_NOMBRE_MACRO_PROCESO", "A_DESCRIPCION_MACRO_PROCESO", "ID_PERSPECTIVA" FROM sgdp."SGDP_MACRO_PROCESOS" order by "A_NOMBRE_MACRO_PROCESO" ASC;';
 	
 	$result=pg_query($dbconn, $sql);
+	echo pg_last_error($dbconn);
 	if(!$result){
 		pg_query($dbconn, 'ROLLBACK');
+		echo "hola";
+		// echo $r;
 		return 'Error al extraer proceso';
 	}
 	$proc=null;

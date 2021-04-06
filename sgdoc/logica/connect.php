@@ -1,29 +1,12 @@
 <?php
-// connect.php 
-/*
-$data = "sgdoc";
-$user = "sgdoc"; //usuario de postgres
-$pass = "21382138"; //password de usuario de postgres
-//test
-//$conn_string = "host=172.16.10.240 dbname=".$data." user=".$user." password=".$pass;
 
-//prod
-$conn_string = "host=scjpsqlprod.supercasino.cl dbname=".$data." user=".$user." password=".$pass;*/
-
-//nueva conexion EDB
-$host="scjedb.supercasino.cl";
-$port='5444';
-$data = "sgdoc";
-$user = "usuario_postgres"; //usuario de postgres
-$pass = "postgresSCJ"; //password de usuario de postgres
-
-
+include("configuracion.php");
 $conn_string = "host=$host port=$port dbname=".$data." user=".$user." password=".$pass;/**/
 
 $dbconn = pg_connect($conn_string);
 // validar la conexi�n
 if(!$dbconn) {
-    echo "Error al conectar a la Base de datos\n";
+    echo "Error 2 al conectar a la Base de datos\n";
 	$cuerpo="[ERROR][scjedb.supercasino.cl][".date('Y-m-d H:i:s')."]: No ha sido posible conectarse a la Base de datos de SGDOC del buscador. Por favor, verificar el sistema para garantizar su continuidad operativa.";	
 	$destin= 'fmolins';
 	

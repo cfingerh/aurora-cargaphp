@@ -328,14 +328,14 @@ function tablaProceso($proceso){
 		$visa=$fea=$adv=$plazo=null;
 		$visa=$proceso['tareas'][$i]['prop']['visa'];
 		$fea=$proceso['tareas'][$i]['prop']['fea'];
-		$numera=$proceso['tareas'][$i]['prop']['num'];
-		$espera=$proceso['tareas'][$i]['prop']['esperar'];
+		$numera=null;//$proceso['tareas'][$i]['prop']['num'];
+		$espera=null;//$proceso['tareas'][$i]['prop']['esperar'];
 		$plazo=$proceso['tareas'][$i]['prop']['plazo'];
 		$etapa=$proceso['tareas'][$i]['prop']['etapa'];
-		$tiporesteo=$proceso['tareas'][$i]['prop']['tiporesteo'];
-		$diasresteo=$proceso['tareas'][$i]['prop']['diasresteo'];
-		$tiporesteo=$proceso['tareas'][$i]['prop']['tiporesteo'];
-		$diasresteo=$proceso['tareas'][$i]['prop']['diasresteo'];
+		// $tiporesteo=$proceso['tareas'][$i]['prop']['tiporesteo'];
+		// $diasresteo=$proceso['tareas'][$i]['prop']['diasresteo'];
+		$tiporesteo=null;//$proceso['tareas'][$i]['prop']['tiporesteo'];
+		$diasresteo=null;//$proceso['tareas'][$i]['prop']['diasresteo'];
 		$roles=getRol($proceso['tareas'][$i]['id'],$proceso['roles'] );
 		$tipo=getTipoTarea($proceso['tareas'][$i]['id'],$proceso);
 		//$parametrosT=$proceso['tareas'][$i]['params'];
@@ -507,7 +507,7 @@ function getTipoTarea($_idTarea, $_proceso){
 				if($comp['tipo']=='exclusiveGateway'){
 					$tipoC='OR';
 				}
-				$tipo.=$tipoC.'</br>';
+				$tipo.=$tipoC.'--</br>';
 			}
 		}
 	}
