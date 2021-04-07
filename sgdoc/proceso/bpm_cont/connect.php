@@ -1,12 +1,8 @@
 <?php
-// connect.php 
-
-$host = "172.16.10.61";
-$data = "alfresco";
-$user = "alfresco"; //usuario de postgres
-$pass = "S4cc84cJ"; //password de usuario de postgres
+include("../../configuracion.php");
 
 $conn_string = "host=".$host." dbname=".$data." user=".$user." password=".$pass;
+
 
 $dbconn = pg_connect($conn_string);
 // validar la conexi�n

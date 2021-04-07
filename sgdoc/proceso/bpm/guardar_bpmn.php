@@ -2,6 +2,13 @@
 	
 session_start();
 
+
+if (phpversion()[0]>=7){
+function ereg_replace($a,$b,$c){
+	return preg_replace($a,$b,$c);
+}
+}
+
 if ($_SESSION['proceso']==null)
 {
 	echo "POST vacio";
@@ -329,9 +336,17 @@ function guardarProceso($_proceso){
 	//paso 3: guardar documentos del proceso
 	for($i=0;$i<count($_proceso['docs']);$i++){
 		
+		echo "<br>";
+		print_r ($_proceso['docs'][$i]);
+		echo "<br>";
+
 		$nombreD=trim($_proceso['docs'][$i]['name']);
+		echo "<br>";
+		echo $nombreD;
 		$nombreD=ereg_replace('[^ A-Za-z0-9_-ñÑ]', '', $nombreD);
 		//$idDoc = getIdBdDoc($nombreD);
+		echo "<br>";
+		echo $nombreD;
 		
 		$caract=getCaractTarea($_proceso['docs'][$i]['id'], $_proceso);
 		$visa=strtolower(trim($_proceso['docs'][$i]['prop']['visa']));
@@ -833,11 +848,6 @@ function getRelDocs($array_docs){
 	return $aux;
 }
 
-if (phpversion()[0]>=7){
-function ereg_replace($a,$b){
-	return preg_replace($a,'',$b,'');
-}
-}
 
 
 

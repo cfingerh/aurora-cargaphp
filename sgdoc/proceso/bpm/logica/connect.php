@@ -1,11 +1,8 @@
 <?php
 // connect.php 
 
-$host="54.207.252.22";
-$port='5432';
-$data = "sgdp";
-$user = "sgdp"; //usuario de postgres
-$pass = "gest1469"; //password de usuario de postgres
+include("../../../configuracion.php");
+
 
 $conn_string = "host=".$host." dbname=".$data." user=".$user." password=".$pass;
 
